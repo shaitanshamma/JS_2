@@ -2047,7 +2047,8 @@ input.input_radio {
 
     .sale_and_delivery {
         height: 610px;
-        width: 768px;
+        max-width: 768px;
+        width: 100%;
     }
 
     .sale_and_delivery_block {
@@ -2492,6 +2493,8 @@ input.input_radio {
         margin-left: 56px;
         height: 66px;
         margin-top: 148px;
+        width: 100%;
+        min-width: auto;
     }
 
     .content_1 {
