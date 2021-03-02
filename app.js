@@ -6,33 +6,107 @@ const overlayMenuClose = document.getElementById("close__overlay");
 
 const basketNum = document.getElementById("basket__count");
 
+const cartHtml = document.querySelector('.cart_items');
+
 let basketCount;
+
+let cart = [];
+
+let catalog = [];
+
+
+// const featureItem = document.querySelector('');
+
+const mainCatalogHtml = document.querySelector('.feature_content');
+const catalogHtml = document.querySelector('.feature_content.catalog');
+
+// const catalogHtml = document.querySelector('.feature_content');
+
+class Product {
+    constructor(id, title, brand = 'noname', price, imgSrc, popular=false) {
+        this.id = id;
+        this.title = title;
+        this.brand = brand;
+        this.price = price;
+        this.imgSrc = imgSrc;
+        this.popular = popular;
+    }
+}
+
+let prd_1 = new Product(1, 'ELLERY X M\'O CAPSULE', undefined, 52, 'img/catalog/feature_1.png',true)
+let prd_2 = new Product(2, 'ELLERY X M\'O CAPSULE', undefined, 54, 'img/catalog/feature_2.png')
+let prd_3 = new Product(3, 'ELLERY X M\'O CAPSULE', undefined, 58, 'img/catalog/feature_3.png')
+let prd_4 = new Product(4, 'ELLERY X M\'O CAPSULE', undefined, 60, 'img/catalog/feature_4.png',true)
+let prd_5 = new Product(5, 'ELLERY X M\'O CAPSULE', undefined, 123, 'img/catalog/feature_5.png')
+let prd_6 = new Product(6, 'ELLERY X M\'O CAPSULE', undefined, 152, 'img/catalog/feature_6.png',true)
+let prd_7 = new Product(7, 'ELLERY X M\'O CAPSULE', undefined, 55, 'img/catalog/feature_7.png')
+let prd_8 = new Product(8, 'ELLERY X M\'O CAPSULE', undefined, 569, 'img/catalog/feature_8.png',true)
+let prd_9 = new Product(9, 'ELLERY X M\'O CAPSULE', undefined, 48, 'img/catalog/feature_9.png')
+let prd_10 = new Product(10, 'ELLERY X M\'O CAPSULE', undefined, 45, 'img/catalog/feature_10.png',true)
+let prd_11 = new Product(11, 'ELLERY X M\'O CAPSULE', undefined, 66, 'img/catalog/feature_11.png')
+let prd_12 = new Product(12, 'ELLERY X M\'O CAPSULE', undefined, 50, 'img/catalog/feature_12.png',true)
+
+catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
+
+function drawFeature(product) {
+    if (mainCatalogHtml !== null && product.popular) {
+        drawItem(mainCatalogHtml, product);
+    }else if (catalogHtml !== null){
+        drawItem(catalogHtml, product);
+    }
+}
+
+function drawItem(htmlBlock, product){
+    htmlBlock.insertAdjacentHTML("afterbegin", `        
+        <div class="fature_item" id="product_${product.id}">
+            <div class="overlay">
+                <a href="cart.html">
+                </a>
+                    <button class="add_to_card_block" id="add_to_cart_${product.id}" type="button">
+                        <img src="img/cart.png" alt="">
+                        <p>Add to Cart</p>
+                    </button>
+            </div>
+            <a href="product.html">
+                <img src=${product.imgSrc} alt="" class="feature_img">
+                <h3>${product.title}</h3>
+                <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
+                    Ellery teams up with Moda Operandi.</p>
+                <p class="price">$${product.price}</p>
+            </a>
+        </div>`)
+}
+
+function drawMainCatalogHTML(arr){
+    arr.reverse().forEach(product => drawFeature(product))
+}
+
+drawMainCatalogHTML(catalog)
+
 
 window.onload = () => {
     if (document.querySelector(".cart_items") !== null) {
-        basketCount = document.querySelector(".cart_items").children.length;
+        basketCount = cart.length;
         basketNum.textContent = `${basketCount}`;
     } else {
-        basketNum.textContent = "2";
+        basketNum.style.display = 'none';
     }
 };
 
 overlayMenuOpenButton.onclick = () => {
-    /* С точки зрения доступности сайта, лучше использовать display: none, иначе читалка сможет увидеть меню, даже если оно скрыто */
-    // https://htmlacademy.ru/blog/boost/frontend/short-12
-    if (overlayStyle.style.visibility === "hidden") {
+    if (overlayStyle.style.display === "none") {
         document.body.style.overflow = 'hidden'
         document.getElementById("overlay_menu").style.opacity = "1";
-        document.getElementById("overlay_menu").style.visibility = "visible";
+        document.getElementById("overlay_menu").style.display = "flex";
     } else {
         document.body.style.overflow = null
         document.getElementById("overlay_menu").style.opacity = "0";
-        document.getElementById("overlay_menu").style.visibility = "hidden";
+        document.getElementById("overlay_menu").style.display = "none";
     }
 };
 overlayMenuClose.onclick = () => {
     document.body.style.overflow = null
-    document.getElementById("overlay_menu").style.visibility = "hidden";
+    document.getElementById("overlay_menu").style.display = "none";
     document.getElementById("overlay_menu").style.opacity = "0";
 };
 
@@ -46,3 +120,95 @@ function removeItem(id) {
         basketNum.textContent = `0`;
     }
 }
+
+if (mainCatalogHtml != null) {
+    mainCatalogHtml.addEventListener('click', addProdToCart)
+}
+
+
+// catalogHtml.addEventListener('click', showModal)
+
+function addProdToCart(e) {
+    let isInCart = false
+    for (const prod of catalog) {
+        if (e.target.id === `add_to_cart_${prod.id}`) {
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].id === prod.id) {
+                    cart[i].quantity += 1
+                    isInCart = true
+                }
+            }
+            if (!isInCart) {
+                prod.quantity = 1
+                cart.push(prod)
+            }
+        }
+    }
+    basketNum.style.display = 'block';
+    basketNum.textContent = `${cart.length}`;
+    console.log(cart)
+}
+
+/*Пока заглушка, т.к. еще не умею передавать данные между станицами*/
+if (cartHtml != null) {
+    // for (const product of cart) {
+        cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${catalog[1].id}'>
+                        <img src='${catalog[1].imgSrc}' alt="" class="product_img">
+                        <div class="description">
+                            <h3>MANGO PEOPLE T-SHIRT</h3>
+                            <p class="product_decr">Price: <span>${catalog[1].price}</span></p>
+                            <p class="product_decr">Color: Red</p>
+                            <p class="product_decr">Size: Xl</p>
+                            <label>
+                                <span class="product_decr">Quantity:</span>
+                                <input type="number" class="input_number" value="${catalog[1].quantity}">
+                            </label>
+                            <a href="#" class="close_prd" >
+                                <i class="far fa-window-close product-close"></i>
+                            </a>
+                        </div>
+                    </div>`)
+    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${catalog[5].id}'>
+                        <img src='${catalog[5].imgSrc}' alt="" class="product_img">
+                        <div class="description">
+                            <h3>MANGO PEOPLE T-SHIRT</h3>
+                            <p class="product_decr">Price: <span>${catalog[5].price}</span></p>
+                            <p class="product_decr">Color: Red</p>
+                            <p class="product_decr">Size: Xl</p>
+                            <label>
+                                <span class="product_decr">Quantity:</span>
+                                <input type="number" class="input_number" value="${catalog[5].quantity}">
+                            </label>
+                            <a href="#" class="close_prd" >
+                                <i class="far fa-window-close product-close"></i>
+                            </a>
+                        </div>
+                    </div>`)
+    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${catalog[1].id}'>
+                        <img src='${catalog[1].imgSrc}' alt="" class="product_img">
+                        <div class="description">
+                            <h3>MANGO PEOPLE T-SHIRT</h3>
+                            <p class="product_decr">Price: <span>${catalog[1].price}</span></p>
+                            <p class="product_decr">Color: Red</p>
+                            <p class="product_decr">Size: Xl</p>
+                            <label>
+                                <span class="product_decr">Quantity:</span>
+                                <input type="number" class="input_number" value="${catalog[1].quantity}">
+                            </label>
+                            <div class="close_prd" id="rmv_${catalog[1].id}">
+                                <i class="far fa-window-close product-close"></i>
+                            </div>
+                        </div>
+                    </div>`)
+    // }
+
+    cartHtml.addEventListener('click', function (e){
+        if(e.target.id ===`rmv_${catalog[1].id}`){
+
+        }
+    })
+}
+
+
+
+

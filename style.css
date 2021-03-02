@@ -41,7 +41,7 @@ ul {
     margin-bottom: 0;
 }
 
-button:active, button:focus, button:hover {
+button:not(.add_to_card_block):active, button:not(.add_to_card_block):focus, button:not(.add_to_card_block):hover {
     -webkit-box-shadow: 5px 12px 20px 0 rgba(0, 0, 0, 0.32);
     box-shadow: 5px 12px 20px 0 rgba(0, 0, 0, 0.32);
     border: none;
@@ -49,6 +49,7 @@ button:active, button:focus, button:hover {
     -ms-transform: translateY(-3px);
     transform: translateY(-3px);
 }
+
 
 body {
     margin: 0 auto;
@@ -215,7 +216,6 @@ header {
 
 .overlay_menu {
     position: absolute;
-    visibility: hidden;
     top: 75px;
     left: 0;
     right: 0;
@@ -232,10 +232,9 @@ header {
     -ms-flex-pack: center;
     justify-content: center;
     z-index: 100;
-    opacity: 0;
     -webkit-transition: all 0.3s ease-in-out 0s;
     -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
+    transition: all 1s ease-in-out 0s;
 }
 
 .overlay_left {
@@ -431,7 +430,8 @@ header {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
-.content_1 >.wrapper{
+
+.content_1 > .wrapper {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -572,6 +572,10 @@ header {
     justify-content: space-between;
 }
 
+.feature_img {
+    height: 420px;
+}
+
 .feature h2 {
     text-align: center;
     font-style: normal;
@@ -694,6 +698,13 @@ header {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    cursor: pointer;
+    background: none;
+    outline: none;
+}
+
+.add_to_card_block:focus {
+    outline: none;
 }
 
 .add_to_card_block p {
@@ -1142,7 +1153,8 @@ footer p {
 /*CATALOG PAGE FEATURE SECTION*/
 
 .feature_nav {
-    padding-right: 422px;
+    padding-left: 230px;
+    padding-right: 652px;
     height: 132px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1379,7 +1391,7 @@ footer p {
 .central_cart .wrapper {
     margin: 0 auto;
     padding: 0 calc(50% - 570px);
-    height: 998px;
+    height: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1415,6 +1427,12 @@ footer p {
     display: flex;
     -webkit-box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
     box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
+    margin-bottom: 30px;
+}
+
+.product_img {
+    width: 262px;
+    height: 306px;
 }
 
 .description {
@@ -1447,10 +1465,10 @@ footer p {
 
 .input_number {
     padding-left: 12px;
-    width: 44px;
+    width: 60px;
     height: 24px;
-    text-align: center;
-    font-size: 18px;
+    /*text-align: center;*/
+    font-size: 16px;
     line-height: 22px;
     color: #656565;
 }
@@ -1477,7 +1495,8 @@ footer p {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    height: 652px;
+    min-height: 652px;
+    height: 100%;
 }
 
 .cart_buttons {
@@ -2505,10 +2524,12 @@ input.input_radio {
         -ms-flex-pack: center;
         justify-content: center;
     }
-    .content_1 > .wrapper{
+
+    .content_1 > .wrapper {
         flex-wrap: wrap;
         justify-content: space-evenly;
     }
+
     .content_block-1, .content_block-2, .content_block-3 {
         background-size: 343px 247px;
         width: 343px;
