@@ -26,6 +26,15 @@ class Hamburger{
     addTopping(topping){
         this.toppings.push(topping)
     }
+    removeTopping(topping){
+        for (let i = 0; i <this.toppings.length ; i++) {
+            if(this.toppings[i]===topping){
+                this.toppings.splice(i,1)
+                break
+            }
+        }
+    }
+
     getPrice(){
         return  this.toppings.reduce((total, item) =>total+ item.price, 0) +
             this.ingridients.reduce((total, item)=>total + item.price, 0)
@@ -76,10 +85,17 @@ let  smallHam = new SmallHamburger('Small Joe')
 
 
 
-bigHam.addTopping(bacon, cheese, onion, tomato)
+bigHam.addTopping(cheese)
+bigHam.addTopping(bacon)
+bigHam.addTopping(onion)
+bigHam.addTopping(tomato)
 bigHam.addSalad()
 bigHam.addPotato()
 
 console.log(bigHam)
 console.log(bigHam.getNutrition(), 'калорийность')
 console.log(bigHam.getPrice(), 'цена')
+bigHam.removeTopping(bacon)
+console.log(bigHam)
+
+
