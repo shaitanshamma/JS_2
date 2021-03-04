@@ -6,70 +6,64 @@ class Topping {
     }
 }
 
-class Hamburger{
+class Hamburger {
     constructor(title) {
         this.title = title
+        this.basePrice = 10;
+        this.baseNutrition = 80;
+        this.ingridients = [];
+        this.toppings = [];
     };
-    basePrice = 10;
-    baseNutrition = 80;
-    ingridients =[];
-    toppings =[];
-    addCheese(){
-        this.ingridients.push({title:'cheese',price: 10, nutrition: 20})
+
+    addCheese() {
+        this.ingridients.push({title: 'cheese', price: 10, nutrition: 20})
     }
-    addSalad(){
-        this.ingridients.push({title:'salad',price: 20, nutrition: 5})
+
+    addSalad() {
+        this.ingridients.push({title: 'salad', price: 20, nutrition: 5})
     }
-    addPotato(){
-        this.ingridients.push({title:'potato',price: 15, nutrition: 10})
+
+    addPotato() {
+        this.ingridients.push({title: 'potato', price: 15, nutrition: 10})
     }
-    addTopping(topping){
+
+    addTopping(topping) {
         this.toppings.push(topping)
     }
-    removeTopping(topping){
-        for (let i = 0; i <this.toppings.length ; i++) {
-            if(this.toppings[i]===topping){
-                this.toppings.splice(i,1)
+
+    removeTopping(topping) {
+        for (let i = 0; i < this.toppings.length; i++) {
+            if (this.toppings[i] === topping) {
+                this.toppings.splice(i, 1)
                 break
             }
         }
     }
 
-    getPrice(){
-        return  this.toppings.reduce((total, item) =>total+ item.price, 0) +
-            this.ingridients.reduce((total, item)=>total + item.price, 0)
+    getPrice() {
+        return this.toppings.reduce((total, item) => total + item.price, 0) +
+            this.ingridients.reduce((total, item) => total + item.price, 0) + this.basePrice
     }
-    getNutrition(){
-        return this.toppings.reduce((total, item) =>total+ item.nutrition, 0) +
-            this.ingridients.reduce((total, item)=>total + item.nutrition, 0)
+
+    getNutrition() {
+        return this.toppings.reduce((total, item) => total + item.nutrition, 0) +
+            this.ingridients.reduce((total, item) => total + item.nutrition, 0) + this.baseNutrition
     }
 }
 
-class BigHamburger extends Hamburger{
+class BigHamburger extends Hamburger {
     constructor(title) {
         super(title);
-    }
-    basePrice = 30;
-    baseNutrition = 150;
-    getNutrition() {
-        return super.getNutrition() + this.baseNutrition;
-    }
-    getPrice() {
-        return super.getPrice() + this.basePrice;
+        this.basePrice = 30;
+        this.baseNutrition = 150;
     }
 }
 
-class SmallHamburger extends Hamburger{
+class SmallHamburger extends Hamburger {
     constructor(title) {
         super(title);
-    }
-    basePrice = 150;
-    baseNutrition = 80;
-    getNutrition() {
-        return super.getNutrition() + this.baseNutrition;
-    }
-    getPrice() {
-        return super.getPrice() + this.basePrice;
+        this.basePrice = 150;
+        this.baseNutrition = 80;
     }
 }
 
@@ -79,10 +73,9 @@ let bacon = new Topping('bacon', 13, 60)
 let onion = new Topping('onion', 7, 15)
 let tomato = new Topping('tomato', 9, 17)
 
-let  ham = new Hamburger('Joe')
-let  bigHam = new BigHamburger('Big Joe')
-let  smallHam = new SmallHamburger('Small Joe')
-
+let ham = new Hamburger('Joe')
+let bigHam = new BigHamburger('Big Joe')
+let smallHam = new SmallHamburger('Small Joe')
 
 
 bigHam.addTopping(cheese)
@@ -97,5 +90,4 @@ console.log(bigHam.getNutrition(), 'калорийность')
 console.log(bigHam.getPrice(), 'цена')
 bigHam.removeTopping(bacon)
 console.log(bigHam)
-
 
