@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2f9a841967.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Cart</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="nav__menu">
+            <div class="nav_left">
+                <div class="logo"><a href="index.html"><img src="img/Group%202.svg" alt="" class="img_header"></a></div>
+                <div class="logo_2">
+                    <input type="checkbox" id="search">
+                    <label for="search">
+                        <img src="img/Forma%201.svg" alt="" class="img_header">
+                    </label>
+                    <form class="search">
+                        <label>
+                            <input type="text" placeholder="Search" class="search_field">
+                        </label>
+                        <button type="submit" class="search_btn">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="nav_menu">
+                    <button class="open__overlay" id="open__overlay">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="nav_button"><a href="#"><img src="img/Forma_2.png" alt="" class="img_header"></a></div>
+                    <div class="nav_button basket"><a href="cart.html"><img src="img/Forma_3.png" alt=""
+                                                                            class="img_header"></a>
+                        <p class="basket__count" id="basket__count"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay_menu" id="overlay_menu" style="visibility: hidden; opacity: 0">
+            <div class="overlay_left"></div>
+            <div class="overlay_right">
+                <button class="close __overlay" id="close__overlay">
+                    <i class="far fa-window-close"></i>
+                </button>
+                <h2>MENU</h2>
+                <h3>MAN</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Bags</a></li>
+                    <li class="nemu_link"><a href="#">Denim</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                </ul>
+                <h3>WOMAN</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Jackets & Coats</a></li>
+                    <li class="nemu_link"><a href="#">Polos</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Shirts</a></li>
+                </ul>
+                <h3>KIDS</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Jackets & Coats</a></li>
+                    <li class="nemu_link"><a href="#">Polos</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Bags</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="cart_top">
+        <div class="wrapper">
+            <h2>SHOPPING CART</h2>
+        </div>
+    </section>
+    <section class="central_cart">
+        <div class="wrapper">
+            <div class="products_in_cart">
+                <div class="cart_items">
+<!--                    <div class="product_in_cart" id="pr1">-->
+<!--                        <img src="img/small_img_1.png" alt="" class="product_img">-->
+<!--                        <div class="description">-->
+<!--                            <h3>MANGO PEOPLE T-SHIRT</h3>-->
+<!--                            <p class="product_decr">Price: <span>$300</span></p>-->
+<!--                            <p class="product_decr">Color: Red</p>-->
+<!--                            <p class="product_decr">Size: Xl</p>-->
+<!--                            <label>-->
+<!--                                <span class="product_decr">Quantity:</span>-->
+<!--                                <input type="number" class="input_number">-->
+<!--                            </label>-->
+<!--                            <a href="#" class="close_prd" onclick="removeItem('pr1')">-->
+<!--                                <i class="far fa-window-close product-close"></i>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="product_in_cart" id="pr2">-->
+<!--                        <img src="img/small_img_2.png" alt="" class="product_img">-->
+<!--                        <div class="description">-->
+<!--                            <h3>MANGO PEOPLE T-SHIRT</h3>-->
+<!--                            <p class="product_decr">Price: <span>$300</span></p>-->
+<!--                            <p class="product_decr">Color: Red</p>-->
+<!--                            <p class="product_decr">Size: Xl</p>-->
+<!--                            <label>-->
+<!--                                <span class="product_decr">Quantity:</span>-->
+<!--                                <input type="number" class="input_number">-->
+<!--                            </label>-->
+<!--                            <a href="#" class="close_prd" onclick="removeItem('pr2')">-->
+<!--                                <i class="far fa-window-close product-close"></i>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <div class="cart_buttons">
+                    <div class="">
+                        <button class="cart_button" onclick="location.href='cart.html'">Clear shopping cart</button>
+                    </div>
+                    <div class="">
+                        <button class="cart_button" onclick="location.href='cart.html'">Continue shopping</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order_and_price">
+                <div class="order_form">
+                    <h4>SHIPPING ADDRESS</h4>
+                    <label>
+                        <input type="text" placeholder="Bangladesh">
+                    </label>
+                    <label>
+                        <input type="text" placeholder="State">
+                    </label>
+                    <label>
+                        <input type="text" placeholder="Postcode / Zip">
+                    </label>
+                    <div class="">
+                        <button class="get_quote" onclick="location.href='cart.html'">GET A QUOTE</button>
+                    </div>
+                </div>
+                <div class="total_price">
+                    <h5>SUB TOTAL $900</h5>
+                    <h4>GRAND TOTAL <span>$900</span></h4>
+                    <div class="proceed_button">
+                        <button class="proceed" onclick="location.href='cart.html'">PROCEED TO CHECKOUT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="subscribe">
+        <div class="sub_block">
+            <div class="img_subb"></div>
+            <p>“Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar purus condimentum“</p>
+        </div>
+        <div class="sub_form">
+            <h2>SUBSCRIBE</h2>
+            <h3>FOR OUR NEWLETTER AND PROMOTION</h3>
+            <div class="button-fl">
+                <label id="input_email">
+                    <input type="email" placeholder="Enter Your Email">
+                </label>
+                <div class="butn">
+                    <button type="button" class="sub_btn" onclick="location.href='register.html'" title="Registration">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="foot">
+            <p>© 2021 Brand All Rights Reserved.</p>
+            <p id="123"></p>
+            <div class="social_link">
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fa fa-instagram"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

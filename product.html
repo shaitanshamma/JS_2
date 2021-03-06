@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2f9a841967.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Our Product</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="nav__menu">
+            <div class="nav_left">
+                <div class="logo"><a href="index.html"><img src="img/Group%202.svg" alt="" class="img_header"></a></div>
+                <div class="logo_2">
+                    <input type="checkbox" id="search">
+                    <label for="search">
+                        <img src="img/Forma%201.svg" alt="" class="img_header">
+                    </label>
+                    <form class="search">
+                        <label>
+                            <input type="text" placeholder="Search" class="search_field">
+                        </label>
+                        <button type="submit" class="search_btn">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="nav_menu">
+                    <button class="open__overlay" id="open__overlay">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="nav_button"><a href="#"><img src="img/Forma_2.png" alt="" class="img_header"></a></div>
+                    <div class="nav_button basket"><a href="cart.html"><img src="img/Forma_3.png" alt=""
+                                                                            class="img_header"></a>
+                        <p class="basket__count" id="basket__count">5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay_menu" id="overlay_menu" style="visibility: hidden; opacity: 0">
+            <div class="overlay_left"></div>
+            <div class="overlay_right">
+                <button class="close __overlay" id="close__overlay">
+                    <i class="far fa-window-close"></i>
+                </button>
+                <h2>MENU</h2>
+                <h3>MAN</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Bags</a></li>
+                    <li class="nemu_link"><a href="#">Denim</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                </ul>
+                <h3>WOMAN</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Jackets & Coats</a></li>
+                    <li class="nemu_link"><a href="#">Polos</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Shirts</a></li>
+                </ul>
+                <h3>KIDS</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Jackets & Coats</a></li>
+                    <li class="nemu_link"><a href="#">Polos</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Bags</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="new_arivals">
+        <div class="wrapper">
+            <h2>NEW ARRIVALS</h2>
+            <ul class="catalog_nav">
+                <li class="catalog__list"><a href="" class="catalog__link">HOME</a></li>
+                <li class="catalog__list"><a href="" class="catalog__link">MEN</a></li>
+                <li class="catalog__list"><a href="" class="catalog__link active">NEW ARRIVALS</a></li>
+            </ul>
+        </div>
+    </section>
+    <section class="top__">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
+                <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <div class="carousel__item d-flex justify-content-center">
+                        <img src="img/prod.png" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-md-block">
+                            <h5>Женщина на табуретке</h5>
+                            <p>Наши табуретки самые классные и удобные! Покупайте наши табуретки!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <div class="carousel__item d-flex justify-content-center">
+                        <img src="img/prod.png" class="d-block w-100" alt="...">
+                        <div class="carousel-caption  d-md-block">
+                            <h5>Опять женщина на табуретке</h5>
+                            <p>Наши табуретки самые классные и удобные! Покупайте наши табуретки!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel__item d-flex justify-content-center">
+                        <img src="img/prod.png" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-md-block ">
+                            <h5>Снова женщина на табуретке</h5>
+                            <p>Наши табуретки самые классные и удобные! Покупайте наши табуретки!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
+                <div class="arrow_left">
+                    <i class="fas fa-chevron-left chevron"></i>
+                </div>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
+                <div class="arrow_right">
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+            </a>
+        </div>
+    </section>
+    <section class="custom_prod">
+        <div class="wrapper">
+            <div class="custom_prod_desc">
+                <h5>WOMEN COLLECTION</h5>
+                <h4>MOSCHINO CHEAP AND CHIC</h4>
+                <p class="custom_prod_desc_p">Compellingly actualize fully researched processes before proactive
+                    outsourcing. Progressively
+                    syndicate collaborative architectures before cutting-edge services. Completely visualize parallel
+                    core competencies rather than exceptional portals. </p>
+                <p class="custom_prod_desc_price">$561</p>
+                <div class="delimeter"></div>
+                <div class="feature_menu">
+                    <div class="featire_list"><h4>CHOOSE COLOR</h4></div>
+                    <div class="featire_list">
+                        <h4>CHOOSE SIZE </h4>
+                        <div class="ft_overlay">
+                            <label class="ft_label">
+                                <input type="checkbox" class="check_box">
+                                <span>XS</span>
+                            </label>
+                            <label class="ft_label">
+                                <input type="checkbox" class="check_box">
+                                <span>S</span>
+                            </label>
+                            <label class="ft_label">
+                                <input type="checkbox" class="check_box">
+                                <span>M</span>
+                            </label>
+                            <label class="ft_label">
+                                <input type="checkbox" class="check_box">
+                                <span>L</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="featire_list"><h4>QUANTITY</h4></div>
+                </div>
+                <div class="order__button">
+                    <a href="cart.html">
+                        <div class="add_to_card_block_prod_page">
+                            <svg class="cart_img" width="26" height="24" viewBox="0 0 32 29" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M26.2 29C25.5522 28.9738 24.9405 28.6948 24.4962 28.2227C24.0519 27.7506 23.8104 27.1232 23.8235 26.475C23.8366 25.8269 24.1033 25.2097 24.5663 24.7559C25.0293 24.3022 25.6518 24.048 26.3 24.048C26.9483 24.048 27.5707 24.3022 28.0337 24.7559C28.4967 25.2097 28.7634 25.8269 28.7765 26.475C28.7896 27.1232 28.5481 27.7506 28.1038 28.2227C27.6594 28.6948 27.0478 28.9738 26.4 29H26.2ZM6.75195 26.32C6.75195 25.79 6.90913 25.2718 7.20361 24.8311C7.4981 24.3904 7.91667 24.0469 8.40637 23.844C8.89608 23.6412 9.43497 23.5881 9.95483 23.6915C10.4747 23.7949 10.9522 24.0502 11.327 24.425C11.7018 24.7998 11.9571 25.2773 12.0605 25.7972C12.164 26.317 12.1108 26.8559 11.908 27.3456C11.7051 27.8353 11.3616 28.2539 10.9209 28.5483C10.4802 28.8428 9.96206 29 9.43201 29C9.0799 29.0003 8.73114 28.9311 8.40576 28.7966C8.08038 28.662 7.78472 28.4646 7.53564 28.2158C7.28657 27.9669 7.08903 27.6713 6.95422 27.3461C6.81942 27.0208 6.75 26.6721 6.75 26.32H6.75195ZM10.552 20.686C10.2926 20.6868 10.04 20.6024 9.83313 20.4457C9.62629 20.2891 9.47661 20.0689 9.40698 19.819L4.57397 2.36401H1.18103C0.867544 2.36401 0.566883 2.23947 0.345215 2.01781C0.123547 1.79614 -0.000976562 1.49549 -0.000976562 1.18201C-0.000976562 0.868519 0.123547 0.567873 0.345215 0.346205C0.566883 0.124537 0.867544 5.81268e-06 1.18103 5.81268e-06H5.46204C5.72153 -0.00080736 5.97406 0.0837201 6.18079 0.240568C6.38751 0.397416 6.53686 0.617884 6.60596 0.868006L11.439 18.323H24.6169L29 8.27501H14.4C14.2418 8.27961 14.0844 8.25242 13.9369 8.19507C13.7894 8.13771 13.6549 8.05134 13.5414 7.94108C13.4279 7.83082 13.3376 7.69891 13.276 7.55315C13.2144 7.40739 13.1826 7.25075 13.1826 7.0925C13.1826 6.93426 13.2144 6.77762 13.276 6.63186C13.3376 6.4861 13.4279 6.35419 13.5414 6.24393C13.6549 6.13367 13.7894 6.0473 13.9369 5.98994C14.0844 5.93259 14.2418 5.90541 14.4 5.91001H30.813C31.0087 5.90996 31.2013 5.95866 31.3734 6.05172C31.5456 6.14478 31.6918 6.27926 31.799 6.44301C31.9068 6.60729 31.9724 6.79569 31.9899 6.99145C32.0073 7.18721 31.9762 7.38424 31.899 7.565L26.494 19.977C26.4016 20.1876 26.25 20.3668 26.0575 20.4927C25.865 20.6186 25.64 20.6858 25.41 20.686H10.552Z"
+                                />
+                            </svg>
+                            <p class="order__button_p">Add to Cart</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="feature_content prod_page">
+        <div class="fature_item ">
+            <a href="#">
+                <img src="img/feature_3.png" alt="">
+                <h3>ELLERY X M'O CAPSULE</h3>
+                <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
+                    Ellery teams up with Moda Operandi.</p>
+                <p class="price">$52.00</p>
+            </a>
+        </div>
+        <div class="fature_item">
+            <a href="#">
+                <img src="img/feature_4.png" alt="">
+                <h3>ELLERY X M'O CAPSULE</h3>
+                <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
+                    Ellery teams up with Moda Operandi.</p>
+                <p class="price">$52.00</p>
+            </a>
+        </div>
+        <div class="fature_item last">
+            <a href="#">
+                <img src="img/feature_6.png" alt="">
+                <h3>ELLERY X M'O CAPSULE</h3>
+                <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
+                    Ellery teams up with Moda Operandi.</p>
+                <p class="price">$52.00</p>
+            </a>
+        </div>
+    </section>
+    <section class="subscribe">
+        <div class="sub_block">
+            <div class="img_subb"></div>
+            <p>“Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar purus condimentum“</p>
+        </div>
+        <div class="sub_form">
+            <h2>SUBSCRIBE</h2>
+            <h3>FOR OUR NEWLETTER AND PROMOTION</h3>
+            <div class="button-fl">
+                <label id="input_email">
+                    <input type="email" placeholder="Enter Your Email">
+                </label>
+                <div class="butn">
+                    <button type="button" class="sub_btn" onclick="location.href='register.html'" title="Registration">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="foot">
+            <p>© 2021 Brand All Rights Reserved.</p>
+            <div class="social_link">
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fa fa-instagram"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

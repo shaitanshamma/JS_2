@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2f9a841967.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <title>Catalog</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="nav__menu">
+            <div class="nav_left">
+                <div class="logo"><a href="index.html"><img src="img/Group%202.svg" alt="" class="img_header"></a></div>
+                <div class="logo_2">
+                    <input type="checkbox" id="search">
+                    <label for="search">
+                        <img src="img/Forma%201.svg" alt="" class="img_header">
+                    </label>
+                    <form class="search">
+                        <label>
+                            <input type="text" placeholder="Search" class="search_field">
+                        </label>
+                        <button type="submit" class="search_btn">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="nav_menu">
+                    <button class="open__overlay" id="open__overlay">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="nav_button"><a href="#"><img src="img/Forma_2.png" alt="" class="img_header"></a></div>
+                    <div class="nav_button basket"><a href="cart.html"><img src="img/Forma_3.png" alt=""
+                                                                            class="img_header"></a>
+                        <p class="basket__count" id="basket__count">5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="overlay_menu" id="overlay_menu" style="visibility: hidden; opacity: 0">
+            <div class="overlay_left"></div>
+            <div class="overlay_right">
+                <button class="close __overlay" id="close__overlay">
+                    <i class="far fa-window-close"></i>
+                </button>
+                <h2>MENU</h2>
+                <h3>MAN</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Bags</a></li>
+                    <li class="nemu_link"><a href="#">Denim</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                </ul>
+                <h3>WOMAN</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Jackets & Coats</a></li>
+                    <li class="nemu_link"><a href="#">Polos</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Shirts</a></li>
+                </ul>
+                <h3>KIDS</h3>
+                <ul class="ovrl_menu">
+                    <li class="nemu_link"><a href="#">Accessories</a></li>
+                    <li class="nemu_link"><a href="#">Jackets & Coats</a></li>
+                    <li class="nemu_link"><a href="#">Polos</a></li>
+                    <li class="nemu_link"><a href="#">T-Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Shirts</a></li>
+                    <li class="nemu_link"><a href="#">Bags</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section class="new_arivals">
+        <div class="wrapper">
+            <h2>NEW ARRIVALS</h2>
+            <ul class="catalog_nav">
+                <li class="catalog__list"><a href="" class="catalog__link">HOME</a></li>
+                <li class="catalog__list"><a href="" class="catalog__link">MEN</a></li>
+                <li class="catalog__list"><a href="" class="catalog__link active">NEW ARRIVALS</a></li>
+            </ul>
+        </div>
+    </section>
+    <div class="feature_nav">
+        <div class="filter">
+            <h3 class="filter__h3">FILTER</h3>
+            <div class="filter_overlay">
+                <div class="overlay_list">
+                    <h3 class="filter__h3">FILTER</h3>
+                    <div class="over__block">
+                        <div class="regs"></div>
+                        <h3 class="ovrl_l_h3">CATEGORY</h3>
+                    </div>
+                    <ul class="filter_overlay_menu">
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Accessories</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Bags</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Denim</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Hoodies &
+                            Sweatshirts</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Jackets & Coats</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Polos</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Shirts</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Shoes</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Sweaters & Knits</a>
+                        </li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">T-Shirts</a></li>
+                        <li class="overlay_menu_item"><a href="#" class="overlay_menu_link">Tanks</a></li>
+                    </ul>
+                </div>
+                <div class="over__block">
+                    <div class="regs"></div>
+                    <h3 class="ovrl_l_h3">BRAND</h3>
+                </div>
+                <div class="over__block">
+                    <div class="regs"></div>
+                    <h3 class="ovrl_l_h3">DESIGNER</h3>
+                </div>
+            </div>
+        </div>
+        <div class="feature_menu">
+            <div class="featire_list"><h4>TRENDING NOW</h4></div>
+            <div class="featire_list">
+                <h4>SIZE</h4>
+                <div class="ft_overlay">
+                    <label class="ft_label">
+                        <input type="checkbox" class="check_box">
+                        <span>XS</span>
+                    </label>
+                    <label class="ft_label">
+                        <input type="checkbox" class="check_box">
+                        <span>S</span>
+                    </label>
+                    <label class="ft_label">
+                        <input type="checkbox" class="check_box">
+                        <span>M</span>
+                    </label>
+                    <label class="ft_label">
+                        <input type="checkbox" class="check_box">
+                        <span>L</span>
+                    </label>
+                </div>
+            </div>
+            <div class="featire_list"><h4>PRICE</h4></div>
+        </div>
+    </div>
+    <section class="feature_content catalog">
+        <div class="paggination">
+            <div class="from_back">
+                <a href="#"><img src="img/vector/left.png" alt=""></a>
+                <ul class="paggination_menu">
+                    <li class="paggination_list"><a href="#" class="paggination_link active">1</a></li>
+                    <li class="paggination_list"><a href="#" class="paggination_link">2</a></li>
+                    <li class="paggination_list"><a href="#" class="paggination_link">3</a></li>
+                    <li class="paggination_list"><a href="#" class="paggination_link">4</a></li>
+                    <li class="paggination_list"><a href="#" class="paggination_link">5</a></li>
+                    <li class="paggination_list"><a href="#" class="paggination_link">6....20</a></li>
+                </ul>
+                <a href="#"><img src="img/vector/right.png" alt=""></a>
+            </div>
+        </div>
+    </section>
+    <section class="sale_and_delivery">
+        <div class="sale_and_delivery_block">
+            <div class="s_a_d"><img src="img/truck.png" alt="">
+                <h2>Free Delivery</h2>
+                <p>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive
+                    models.</p>
+            </div>
+            <div class="s_a_d"><img src="img/percent.png" alt="">
+                <h2>Sales & discounts</h2>
+                <p>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive
+                    models.</p>
+            </div>
+            <div class="s_a_d"><img src="img/crown.png" alt="">
+                <h2>Quality assurance</h2>
+                <p>Worldwide delivery on all. Authorit tively morph next-generation innov tion with extensive
+                    models.</p>
+            </div>
+        </div>
+    </section>
+    <section class="subscribe">
+        <div class="sub_block">
+            <div class="img_subb"></div>
+            <p>“Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar purus condimentum“</p>
+        </div>
+        <div class="sub_form">
+            <h2>SUBSCRIBE</h2>
+            <h3>FOR OUR NEWLETTER AND PROMOTION</h3>
+            <div class="button-fl">
+                <label id="input_email">
+                    <input type="email" placeholder="Enter Your Email">
+                </label>
+                <div class="butn">
+                    <button type="button" class="sub_btn" onclick="location.href='register.html'" title="Registration">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="foot">
+            <p>© 2021 Brand All Rights Reserved.</p>
+            <div class="social_link">
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fa fa-instagram"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" rel="nofollow" class="icon-button"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

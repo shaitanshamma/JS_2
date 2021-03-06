@@ -1,8 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="afa1223e-89c0-462d-9425-4a3694f67085" name="Default Changelist" comment="refactor">
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_12.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/catalog/feature_9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1p6MDDbcNk08RdpDw3bGteRBgyK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/img/catalog" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JS_projects\JS_2\img\catalog" />
+      <recent name="D:\JS_projects\JS_2" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="afa1223e-89c0-462d-9425-4a3694f67085" name="Default Changelist" comment="" />
+      <created>1614498964800</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1614498964800</updated>
+      <workItem from="1614498965918" duration="7520000" />
+      <workItem from="1614526680723" duration="9130000" />
+      <workItem from="1614657538838" duration="271000" />
+      <workItem from="1614701921056" duration="2356000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial">
+      <created>1614499294265</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1614499294265</updated>
+    </task>
+    <task id="LOCAL-00002" summary="refactor">
+      <created>1614500267630</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614500267630</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1158" y="418" key="Github.ShareDialog" timestamp="1614499013961">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1158" y="418" key="Github.ShareDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1614499013961" />
+    <state x="1147" y="225" key="Github.UntrackedFilesDialog" timestamp="1614499019351">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1147" y="225" key="Github.UntrackedFilesDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1614499019351" />
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1614500273870">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1614500273870" />
+    <state x="936" y="240" key="run.anything.popup" timestamp="1614702693823">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="936" y="240" key="run.anything.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1614702693823" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614702721735">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1614702721735" />
   </component>
 </project>
