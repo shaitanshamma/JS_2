@@ -14,9 +14,9 @@ let basketCount;
 
 let cart = [];
 
-let catalog = [];
-
-const dataBase = [];
+// let catalog = [];
+//
+// let dataBase = [];
 
 const mainCatalogHtml = document.querySelector('.feature_content.main');
 
@@ -33,17 +33,83 @@ class Product {
     }
 }
 
+// class ProductRep {
+//     constructor() {
+//         this.url='database/database.json'
+//     }
+//
+//     makeGETRequest(error, success) {
+//         let xhr;
+//
+//         if (window.XMLHttpRequest) {
+//             xhr = new XMLHttpRequest();
+//         } else if (window.ActiveXObject) {
+//             xhr = new ActiveXObject("Microsoft.XMLHTTP");
+//         }
+//
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState === 4) {
+//                 if(xhr.status ===200){
+//                     success(JSON.parse(xhr.responseText));
+//                 }else if(xhr.status > 400){
+//                     error()
+//                 }
+//             }
+//         }
+//
+//         xhr.open('GET', this.url, true);
+//         xhr.send();
+//     }
+// }
+
 class ProductService {
     constructor() {
+        this.url = 'database/database.json'
+        // this.prdrep = new ProductRep()
+        // this.prdrep.makeGETRequest(this.error.bind(this),this.dbCreate.bind(this) )
+        this.localDb = []
     }
 
-    selectAllProducts(dataBase) {
-        return dataBase
+    error() {
+
     }
 
-    selectPopularProducts(dataBase) {
-        return dataBase.filter(product => product.popular)
+    makeGETRequest(error, success) {
+        let xhr;
+
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    success(JSON.parse(xhr.responseText));
+                } else if (xhr.status > 400) {
+                    error()
+                }
+            }
+        }
+
+        xhr.open('GET', this.url, true);
+        xhr.send();
     }
+
+    // dbCreate(data){
+    //     this.localDb = data
+    //     console.log(data, 'data');
+    //     console.log(this.localDb, 'localDb');
+    // }
+
+    // selectAllProducts() {
+    //     return this.localDb
+    // }
+    //
+    // selectPopularProducts() {
+    //     return this.localDb.filter(product => product.popular)
+    // }
 }
 
 class DrawHtmlItems {
@@ -66,6 +132,14 @@ class MainCatalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
+        this.productService.makeGETRequest(this.errorFunc.bind(this), this.drawCatalog.bind(this))
+    }
+
+    errorFunc() {
+        mainCatalogHtml.insertAdjacentHTML("afterbegin", `        
+        <div class="fature_item">
+                <h3>ПОЛУНДРА!</h3>
+        </div>`)
     }
 
     drawItem(product) {
@@ -89,10 +163,10 @@ class MainCatalog extends DrawHtmlItems {
         </div>`)
     }
 
-    drawCatalog() {
-        this.array = this.productService.selectPopularProducts(dataBase)
+    drawCatalog(data) {
+        this.array = data
         if (mainCatalogHtml !== null) {
-            this.array.reverse().forEach(product => this.drawItem(product))
+            this.array.reverse().filter(prod => prod.popular).forEach(product => this.drawItem(product))
         }
     }
 }
@@ -102,6 +176,14 @@ class Catalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
+        this.productService.makeGETRequest(this.errorFunc.bind(this), this.drawCatalog.bind(this))
+    }
+
+    errorFunc() {
+        catalogHtml.insertAdjacentHTML("afterbegin", `        
+        <div class="fature_item">
+                <h3>ПОЛУНДРА!</h3>
+        </div>`)
     }
 
     drawItem(product) {
@@ -125,8 +207,8 @@ class Catalog extends DrawHtmlItems {
         </div>`)
     }
 
-    drawCatalog() {
-        this.array = this.productService.selectAllProducts(dataBase)
+    drawCatalog(data) {
+        this.array = data
         if (catalogHtml !== null) {
             this.array.reverse().forEach(product => this.drawItem(product))
         }
@@ -142,6 +224,7 @@ class Cart {
         this.list.push(item)
         this.drawCart()
     }
+
     //---------------------------Заглушка --------------------------------
     // drawCart(item) {
     //     const productService = new ProductService()
@@ -204,8 +287,8 @@ const catalogs = new Catalog()
 const mainCatalog = new MainCatalog()
 const cart2 = new Cart()
 
-dataBase.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
-catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
+// dataBase.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
+// catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
 
 catalogs.drawCatalog()
 
@@ -312,7 +395,5 @@ if (cartHtml != null) {
     })
     totalPrice.textContent = `${dataBase[7].price}`
 }
-
-
 
 
