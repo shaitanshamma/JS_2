@@ -67,7 +67,7 @@ class ProductService {
         // this.url = 'database/database.json'
         // // this.prdrep = new ProductRep()
         // // this.prdrep.makeGETRequest(this.error.bind(this),this.dbCreate.bind(this) )
-        // this.localDb = []
+        this.localDb = []
     }
 
     // error() {
@@ -123,6 +123,7 @@ class ProductService {
 
         })
     }
+
 
     makeGPutRequest(product) {
         let cart = 'database/cart.json'
@@ -203,22 +204,21 @@ class MainCatalog extends DrawHtmlItems {
 
     async drawCatalog() {
         let arr = []
-        await this.pr.then(result => result.forEach(p => arr.push(p))
+        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular})=> new Product(id, title, brand, price, imgSrc, popular))
             , error => this.errorFunc(error))
         if (mainCatalogHtml != null) {
             arr.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
         }
-        console.log(arr)
     }
+
 
     async addToCartListner() {
         let arr = []
-        await this.pr.then(function (result) {
-            result.forEach(p => arr.push(p))
-        }, error => this.errorFunc(error))
+        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular})=> new Product(id, title, brand, price, imgSrc, popular)),
+            error => this.errorFunc(error))
         if (mainCatalogHtml != null) {
             mainCatalogHtml.addEventListener('click', function (e) {
-                    arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? this.productService.makeGPutRequest(prod) : new Error('не могу добавить продукт'))
+                    arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? console.log(`Продукт ${prod.id} добавлен`) : new Error('не могу добавить продукт'))
                 }
             )
         }
