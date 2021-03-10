@@ -64,52 +64,89 @@ class Product {
 
 class ProductService {
     constructor() {
-        this.url = 'database/database.json'
-        // this.prdrep = new ProductRep()
-        // this.prdrep.makeGETRequest(this.error.bind(this),this.dbCreate.bind(this) )
-        this.localDb = []
+        // this.url = 'database/database.json'
+        // // this.prdrep = new ProductRep()
+        // // this.prdrep.makeGETRequest(this.error.bind(this),this.dbCreate.bind(this) )
+        // this.localDb = []
     }
 
-    error() {
+    // error() {
+    //
+    // }
 
-    }
+    // makeGETRequest(error, success) {
+    //     let xhr;
+    //
+    //     if (window.XMLHttpRequest) {
+    //         xhr = new XMLHttpRequest();
+    //     } else if (window.ActiveXObject) {
+    //         xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    //     }
+    //
+    //     xhr.open('GET', this.url, true);
+    //     xhr.send();
+    //
+    //     xhr.onreadystatechange = function () {
+    //         if (xhr.readyState === 4) {
+    //             if (xhr.status === 200) {
+    //                 success(JSON.parse(xhr.responseText));
+    //             } else if (xhr.status > 400) {
+    //                 error()
+    //             }
+    //         }
+    //     }
+    // }
+    makeGETRequest() {
+        let url = 'database/database.json'
+        return new Promise(function (resolve, reject) {
+            let xhr;
 
-    makeGETRequest(error, success) {
-        let xhr;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
 
-        if (window.XMLHttpRequest) {
-            xhr = new XMLHttpRequest();
-        } else if (window.ActiveXObject) {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    success(JSON.parse(xhr.responseText));
-                } else if (xhr.status > 400) {
-                    error()
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else if (xhr.status > 400) {
+                        reject(new Error("полундра"))
+                    }
                 }
             }
-        }
 
-        xhr.open('GET', this.url, true);
-        xhr.send();
+            xhr.open('GET', url, true);
+            xhr.send();
+
+
+        })
     }
 
-    // dbCreate(data){
-    //     this.localDb = data
-    //     console.log(data, 'data');
-    //     console.log(this.localDb, 'localDb');
-    // }
+    makeGPutRequest(product) {
+        let cart = 'database/cart.json'
 
-    // selectAllProducts() {
-    //     return this.localDb
-    // }
-    //
-    // selectPopularProducts() {
-    //     return this.localDb.filter(product => product.popular)
-    // }
+            let xhr;
+
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.open('POST', cart, true);
+            xhr.send(product);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                       console.log('ok')
+                    } else if (xhr.status > 400) {
+                        new Error("полундра")
+                    }
+                }
+            }
+    }
 }
 
 class DrawHtmlItems {
@@ -132,14 +169,15 @@ class MainCatalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
-        this.productService.makeGETRequest(this.errorFunc.bind(this), this.drawCatalog.bind(this))
+        this.pr=this.productService.makeGETRequest()
+        this.array = []
+        this.productService.makeGPutRequest.bind(this)
     }
 
     errorFunc() {
-        mainCatalogHtml.insertAdjacentHTML("afterbegin", `        
-        <div class="fature_item">
-                <h3>ПОЛУНДРА!</h3>
-        </div>`)
+        mainCatalogHtml.insertAdjacentHTML("afterbegin", `
+        <h1>ПОЛУНДРА!</h1>
+        `)
     }
 
     drawItem(product) {
@@ -163,12 +201,39 @@ class MainCatalog extends DrawHtmlItems {
         </div>`)
     }
 
-    drawCatalog(data) {
-        this.array = data
-        if (mainCatalogHtml !== null) {
-            this.array.reverse().filter(prod => prod.popular).forEach(product => this.drawItem(product))
+    async drawCatalog() {
+        let arr = []
+        await this.pr.then(result => result.forEach(p => arr.push(p))
+            , error => this.errorFunc(error))
+        if (mainCatalogHtml != null) {
+            arr.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
+        }
+        console.log(arr)
+    }
+
+    async addToCartListner() {
+        let arr = []
+        await this.pr.then(function (result) {
+            result.forEach(p => arr.push(p))
+        }, error => this.errorFunc(error))
+        if (mainCatalogHtml != null) {
+            mainCatalogHtml.addEventListener('click', function (e) {
+                    arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? this.productService.makeGPutRequest(prod) : new Error('не могу добавить продукт'))
+                }
+            )
         }
     }
+
+    // console.log(`Добавлен ${prod.id}`)
+    // findPdr(){
+    //     this.pr.then(function (result){
+    //         for (const item of result) {
+    //             if(item.id ===`add_to_cart_${product.id}`){
+    //                 this.productService.makeGPutRequest(product)
+    //             }
+    //         }
+    //     })
+    // }
 }
 
 class Catalog extends DrawHtmlItems {
@@ -176,14 +241,13 @@ class Catalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
-        this.productService.makeGETRequest(this.errorFunc.bind(this), this.drawCatalog.bind(this))
+        this.productService = new ProductService()
+        this.pr = this.productService.makeGETRequest()
     }
 
     errorFunc() {
-        catalogHtml.insertAdjacentHTML("afterbegin", `        
-        <div class="fature_item">
-                <h3>ПОЛУНДРА!</h3>
-        </div>`)
+        catalogHtml.insertAdjacentHTML("afterbegin", `
+      <h1>ПОЛУНДРА!</h1>`)
     }
 
     drawItem(product) {
@@ -207,10 +271,10 @@ class Catalog extends DrawHtmlItems {
         </div>`)
     }
 
-    drawCatalog(data) {
-        this.array = data
+    drawCatalog() {
         if (catalogHtml !== null) {
-            this.array.reverse().forEach(product => this.drawItem(product))
+            this.pr.then(result => result.reverse().forEach(product => this.drawItem(product)),
+                error => this.errorFunc(error))
         }
     }
 }
@@ -222,7 +286,7 @@ class Cart {
 
     addToCart(item) {
         this.list.push(item)
-        this.drawCart()
+        // this.drawCart()
     }
 
     //---------------------------Заглушка --------------------------------
@@ -248,26 +312,26 @@ class Cart {
     //     basketNum.textContent = `${cart.length}`;
     //      basketNum.textContent = `${this.list.length}`;
     // }
-    drawCart(item) {
-        let isInCart = false
-        for (const prod of catalog) {
-            if (item.target.id === `add_to_cart_${prod.id}`) {
-                for (let i = 0; i < cart.length; i++) {
-                    if (cart[i].id === prod.id) {
-                        cart[i].quantity += 1
-                        isInCart = true
-                    }
-                }
-                if (!isInCart) {
-                    prod.quantity = 1
-                    cart.push(prod)
-                }
-            }
-        }
-        basketNum.style.display = 'block';
-        basketNum.textContent = `${cart.length}`;
-        console.log(cart);
-    }
+    // drawCart(item) {
+    //     let isInCart = false
+    //     for (const prod of catalog) {
+    //         if (item.target.id === `add_to_cart_${prod.id}`) {
+    //             for (let i = 0; i < cart.length; i++) {
+    //                 if (cart[i].id === prod.id) {
+    //                     cart[i].quantity += 1
+    //                     isInCart = true
+    //                 }
+    //             }
+    //             if (!isInCart) {
+    //                 prod.quantity = 1
+    //                 cart.push(prod)
+    //             }
+    //         }
+    //     }
+    //     basketNum.style.display = 'block';
+    //     basketNum.textContent = `${cart.length}`;
+    //     console.log(cart);
+    // }
 }
 
 let prd_1 = new Product(1, 'ELLERY X M\'O CAPSULE', undefined, 52, 'img/catalog/feature_1.png', true)
@@ -293,6 +357,7 @@ const cart2 = new Cart()
 catalogs.drawCatalog()
 
 mainCatalog.drawCatalog()
+mainCatalog.addToCartListner()
 
 window.onload = () => {
     if (document.querySelector(".cart_items") !== null) {
