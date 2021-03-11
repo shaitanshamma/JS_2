@@ -14,6 +14,7 @@ let basketCount;
 
 let cart = [];
 
+
 // let catalog = [];
 //
 // let dataBase = [];
@@ -23,13 +24,14 @@ const mainCatalogHtml = document.querySelector('.feature_content.main');
 const catalogHtml = document.querySelector('.feature_content.catalog');
 
 class Product {
-    constructor(id, title, brand = 'noname', price, imgSrc, popular = false) {
+    constructor(id, title, brand = 'noname', price, imgSrc, popular = false, quant = 1) {
         this.id = id;
         this.title = title;
         this.brand = brand;
         this.price = price;
         this.imgSrc = imgSrc;
         this.popular = popular;
+        this.quant = quant
     }
 }
 
@@ -128,25 +130,25 @@ class ProductService {
     makeGPutRequest(product) {
         let cart = 'database/cart.json'
 
-            let xhr;
+        let xhr;
 
-            if (window.XMLHttpRequest) {
-                xhr = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xhr.open('POST', cart, true);
-            xhr.send(product);
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.open('POST', cart, true);
+        xhr.send(product);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                       console.log('ok')
-                    } else if (xhr.status > 400) {
-                        new Error("полундра")
-                    }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log('ok')
+                } else if (xhr.status > 400) {
+                    new Error("полундра")
                 }
             }
+        }
     }
 }
 
@@ -170,9 +172,10 @@ class MainCatalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
-        this.pr=this.productService.makeGETRequest()
+        this.pr = this.productService.makeGETRequest()
         this.array = []
         this.productService.makeGPutRequest.bind(this)
+        this.basket = new Cart()
     }
 
     errorFunc() {
@@ -204,36 +207,31 @@ class MainCatalog extends DrawHtmlItems {
 
     async drawCatalog() {
         let arr = []
-        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular})=> new Product(id, title, brand, price, imgSrc, popular))
+        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
             , error => this.errorFunc(error))
         if (mainCatalogHtml != null) {
             arr.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
         }
     }
 
-
     async addToCartListner() {
         let arr = []
-        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular})=> new Product(id, title, brand, price, imgSrc, popular)),
+        let basket = new Cart()
+        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular, quant}) => new Product(id, title, brand, price, imgSrc, popular, quant)),
             error => this.errorFunc(error))
         if (mainCatalogHtml != null) {
             mainCatalogHtml.addEventListener('click', function (e) {
-                    arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? console.log(`Продукт ${prod.id} добавлен`) : new Error('не могу добавить продукт'))
+                    arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
+                    // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? localStorage.setItem(`${prod.id}`,`${JSON.stringify(prod)}`) : new Error('не могу добавить продукт'))
+                    // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
+                    // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? cart.push(prod) : new Error('не могу добавить продукт'))
                 }
             )
+            // console.log(cart)
+            console.log(localStorage)
+            console.log("clicl")
         }
     }
-
-    // console.log(`Добавлен ${prod.id}`)
-    // findPdr(){
-    //     this.pr.then(function (result){
-    //         for (const item of result) {
-    //             if(item.id ===`add_to_cart_${product.id}`){
-    //                 this.productService.makeGPutRequest(product)
-    //             }
-    //         }
-    //     })
-    // }
 }
 
 class Catalog extends DrawHtmlItems {
@@ -284,55 +282,61 @@ class Cart {
         this.list = []
     }
 
-    addToCart(item) {
-        this.list.push(item)
-        // this.drawCart()
+    addToBasket(prod) {
+        let isInCart = false
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i)
+            if (key === `${prod.id -1}`) {
+                let product = JSON.parse(localStorage.getItem(key))
+                product.quant += 1
+                console.log(product)
+                localStorage.removeItem(key)
+                localStorage.setItem(`${product.id - 1}`, `${JSON.stringify(product)}`)
+                isInCart = true
+            }
+        }
+        if (!isInCart) {
+            localStorage.setItem(`${prod.id -1}`, `${JSON.stringify(prod)}`)
+        }
+        basketNum.style.display = 'block';
+        basketNum.textContent = `${localStorage.length}`;
+    }
+    addToListBasket(){
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i)
+            let product = JSON.parse(localStorage.getItem(key))
+            console.log(product, 'prod in storage')
+            this.list.push(product)
+        }
+    }
+    draw(){
+        this.list.forEach(p => this.drawItem(p) )
+    }
+    drawItem(item) {
+        if (cartHtml != null) {
+            // for (const product of cart) {
+            cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${item.id}'>
+                        <img src='${item.imgSrc}' alt="" class="product_img">
+                        <div class="description">
+                            <h3>MANGO PEOPLE T-SHIRT</h3>
+                            <p class="product_decr">Price: <span>${item.price}</span></p>
+                            <p class="product_decr">Color: Red</p>
+                            <p class="product_decr">Size: Xl</p>
+                            <label>
+                                <span class="product_decr">Quantity:</span>
+                                <input type="number" class="input_number" value="${item.quant}">
+                            </label>
+                            <a href="#" class="close_prd" >
+                                <i class="far fa-window-close product-close"></i>
+                            </a>
+                        </div>
+                    </div>`)
+        }
     }
 
-    //---------------------------Заглушка --------------------------------
-    // drawCart(item) {
-    //     const productService = new ProductService()
-    //     const catalog = productService.selectAllProducts(dataBase)
-    //     let isInCart = false
-    //     for (const prod of catalog) {
-    //         if (item.target.id === `add_to_cart_${prod.id}`) {
-    //             for (let i = 0; i < this.list.length; i++) {
-    //                 if (this.list[i].id === prod.id) {
-    //                     this.list[i].quantity += 1
-    //                     isInCart = true
-    //                 }
-    //             }
-    //             if (!isInCart) {
-    //                 prod.quantity = 1
-    //                 this.list.push(prod)
-    //             }
-    //         }
-    //     }
-    //     basketNum.style.display = 'block';
-    //     basketNum.textContent = `${cart.length}`;
-    //      basketNum.textContent = `${this.list.length}`;
-    // }
-    // drawCart(item) {
-    //     let isInCart = false
-    //     for (const prod of catalog) {
-    //         if (item.target.id === `add_to_cart_${prod.id}`) {
-    //             for (let i = 0; i < cart.length; i++) {
-    //                 if (cart[i].id === prod.id) {
-    //                     cart[i].quantity += 1
-    //                     isInCart = true
-    //                 }
-    //             }
-    //             if (!isInCart) {
-    //                 prod.quantity = 1
-    //                 cart.push(prod)
-    //             }
-    //         }
-    //     }
-    //     basketNum.style.display = 'block';
-    //     basketNum.textContent = `${cart.length}`;
-    //     console.log(cart);
-    // }
+
 }
+
 
 let prd_1 = new Product(1, 'ELLERY X M\'O CAPSULE', undefined, 52, 'img/catalog/feature_1.png', true)
 let prd_2 = new Product(2, 'ELLERY X M\'O CAPSULE', undefined, 54, 'img/catalog/feature_2.png')
@@ -350,7 +354,7 @@ let prd_12 = new Product(12, 'ELLERY X M\'O CAPSULE', undefined, 50, 'img/catalo
 const catalogs = new Catalog()
 const mainCatalog = new MainCatalog()
 const cart2 = new Cart()
-
+// localStorage.clear()
 // dataBase.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
 // catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
 
@@ -358,6 +362,8 @@ catalogs.drawCatalog()
 
 mainCatalog.drawCatalog()
 mainCatalog.addToCartListner()
+cart2.addToListBasket()
+cart2.draw()
 
 window.onload = () => {
     if (document.querySelector(".cart_items") !== null) {
@@ -366,6 +372,10 @@ window.onload = () => {
     } else {
         basketNum.style.display = 'none';
     }
+}
+window.onload = () => {
+    basketNum.style.display = 'block';
+    basketNum.textContent = `${localStorage.length}`;
 }
 
 overlayMenuOpenButton.onclick = () => {
@@ -385,80 +395,14 @@ overlayMenuClose.onclick = () => {
     document.getElementById("overlay_menu").style.opacity = "0";
 };
 
-function removeItem(id) {
-    document.getElementById(id).remove();
-    if (document.querySelector(".cart_items").children.length !== 0) {
-        basketCount--;
-        basketNum.textContent = `${basketCount}`;
-    } else {
-        document.querySelector(".products_in_cart").remove();
-        basketNum.textContent = `0`;
-    }
-}
-
-if (mainCatalogHtml != null) {
-    mainCatalogHtml.addEventListener('click', cart2.drawCart)
-}
-
-/*Пока заглушка, т.к. еще не умею передавать данные между станицами*/
-if (cartHtml != null) {
-    // for (const product of cart) {
-    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${dataBase[3].id}'>
-                        <img src='${dataBase[3].imgSrc}' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>${dataBase[3].price}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" value="${dataBase[3].quantity}">
-                            </label>
-                            <a href="#" class="close_prd" >
-                                <i class="far fa-window-close product-close"></i>
-                            </a>
-                        </div>
-                    </div>`)
-    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${dataBase[5].id}'>
-                        <img src='${dataBase[5].imgSrc}' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>${dataBase[5].price}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" value="${dataBase[5].quantity}">
-                            </label>
-                            <a href="#" class="close_prd" >
-                                <i class="far fa-window-close product-close"></i>
-                            </a>
-                        </div>
-                    </div>`)
-    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${dataBase[7].id}'>
-                        <img src='${dataBase[7].imgSrc}' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>${dataBase[7].price}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" value="${dataBase[7].quantity}">
-                            </label>
-                            <div class="close_prd" id="rmv_${dataBase[7].id}">
-                                <i class="far fa-window-close product-close"></i>
-                            </div>
-                        </div>
-                    </div>`)
-    // }
-
-    cartHtml.addEventListener('click', function (e) {
-        if (e.target.id === `rmv_${catalog[1].id}`) {
-
-        }
-    })
-    totalPrice.textContent = `${dataBase[7].price}`
-}
-
+// function removeItem(id) {
+//     document.getElementById(id).remove();
+//     if (document.querySelector(".cart_items").children.length !== 0) {
+//         basketCount--;
+//         basketNum.textContent = `${basketCount}`;
+//     } else {
+//         document.querySelector(".products_in_cart").remove();
+//         basketNum.textContent = `0`;
+//     }
+// }
 

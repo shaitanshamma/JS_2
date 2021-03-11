@@ -5,7 +5,8 @@
     "brand": "noname",
     "price": 52,
     "imgSrc": "img/catalog/feature_1.png",
-    "popular": true
+    "popular": true,
+    "quant": 1
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "brand": "noname",
     "price": 54,
     "imgSrc": "img/catalog/feature_2.png",
-    "popular": false
+    "popular": false,
+    "quant": 1
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "brand": "noname",
     "price": 58,
     "imgSrc": "img/catalog/feature_3.png",
-    "popular": false
+    "popular": false,
+    "quant": 1
   },
   {
     "id": 4,
@@ -29,7 +32,8 @@
     "brand": "noname",
     "price": 60,
     "imgSrc": "img/catalog/feature_4.png",
-    "popular": true
+    "popular": true,
+    "quant": 1
   },
   {
     "id": 5,
@@ -37,7 +41,8 @@
     "brand": "noname",
     "price": 123,
     "imgSrc": "img/catalog/feature_5.png",
-    "popular": false
+    "popular": false,
+    "quant": 1
   },
   {
     "id": 6,
@@ -45,7 +50,8 @@
     "brand": "noname",
     "price": 152,
     "imgSrc": "img/catalog/feature_6.png",
-    "popular": true
+    "popular": true,
+    "quant": 1
   },
   {
     "id": 7,
@@ -53,7 +59,8 @@
     "brand": "noname",
     "price": 55,
     "imgSrc": "img/catalog/feature_7.png",
-    "popular": false
+    "popular": false,
+    "quant": 1
   },
   {
     "id": 8,
@@ -61,7 +68,8 @@
     "brand": "noname",
     "price": 569,
     "imgSrc": "img/catalog/feature_8.png",
-    "popular": true
+    "popular": true,
+    "quant": 1
   },
   {
     "id": 9,
@@ -69,7 +77,8 @@
     "brand": "noname",
     "price": 48,
     "imgSrc": "img/catalog/feature_9.png",
-    "popular": false
+    "popular": false,
+    "quant": 1
   },
   {
     "id": 10,
@@ -77,7 +86,8 @@
     "brand": "noname",
     "price": 45,
     "imgSrc": "img/catalog/feature_10.png",
-    "popular": true
+    "popular": true,
+    "quant": 1
   },
   {
     "id": 11,
@@ -85,7 +95,8 @@
     "brand": "noname",
     "price": 66,
     "imgSrc": "img/catalog/feature_11.png",
-    "popular": false
+    "popular": false,
+    "quant": 1
   },
   {
     "id": 12,
@@ -93,6 +104,7 @@
     "brand": "noname",
     "price": 50,
     "imgSrc": "img/catalog/feature_12.png",
-    "popular": true
+    "popular": true,
+    "quant": 1
   }
 ]
