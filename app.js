@@ -280,6 +280,7 @@ class Catalog extends DrawHtmlItems {
 class Cart {
     constructor() {
         this.list = []
+        this.clearCart = document.querySelector('.cart_button.clear')
     }
 
     addToBasket(prod) {
@@ -307,6 +308,7 @@ class Cart {
             let product = JSON.parse(localStorage.getItem(key))
             console.log(product, 'prod in storage')
             this.list.push(product)
+            // this.drawItem(product)
         }
     }
     draw(){
@@ -334,7 +336,13 @@ class Cart {
         }
     }
 
-
+    clear(){
+        this.list = []
+        localStorage.clear()
+        this.addToListBasket()
+        this.draw()
+        console.log("done")
+    }
 }
 
 
@@ -364,6 +372,14 @@ mainCatalog.drawCatalog()
 mainCatalog.addToCartListner()
 cart2.addToListBasket()
 cart2.draw()
+if(cartHtml!=null){
+
+}
+/*Почему не перерисовывается корзина?*/
+cart2.clearCart.addEventListener('click', ()=>{
+    cart2.clear()
+    cart2.draw()
+})
 
 window.onload = () => {
     if (document.querySelector(".cart_items") !== null) {
