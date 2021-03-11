@@ -72,32 +72,6 @@ class ProductService {
         this.localDb = []
     }
 
-    // error() {
-    //
-    // }
-
-    // makeGETRequest(error, success) {
-    //     let xhr;
-    //
-    //     if (window.XMLHttpRequest) {
-    //         xhr = new XMLHttpRequest();
-    //     } else if (window.ActiveXObject) {
-    //         xhr = new ActiveXObject("Microsoft.XMLHTTP");
-    //     }
-    //
-    //     xhr.open('GET', this.url, true);
-    //     xhr.send();
-    //
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState === 4) {
-    //             if (xhr.status === 200) {
-    //                 success(JSON.parse(xhr.responseText));
-    //             } else if (xhr.status > 400) {
-    //                 error()
-    //             }
-    //         }
-    //     }
-    // }
     makeGETRequest() {
         let url = 'database/database.json'
         return new Promise(function (resolve, reject) {
@@ -118,11 +92,8 @@ class ProductService {
                     }
                 }
             }
-
             xhr.open('GET', url, true);
             xhr.send();
-
-
         })
     }
 
@@ -160,10 +131,10 @@ class DrawHtmlItems {
     drawItem() {
 
     }
-
-    addToList(...item) {
-        this.array.push(...item)
-    }
+    //
+    // addToList(...item) {
+    //     this.array.push(...item)
+    // }
 
 }
 
@@ -173,15 +144,24 @@ class MainCatalog extends DrawHtmlItems {
         super();
         this.productService = new ProductService()
         this.pr = this.productService.makeGETRequest()
-        this.array = []
         this.productService.makeGPutRequest.bind(this)
         this.basket = new Cart()
+        const promise = this.productService.makeGETRequest()
+        promise.then(result => this.drawMain(result),
+            err => this.errorFunc(err))
     }
 
-    errorFunc() {
+    errorFunc(e) {
         mainCatalogHtml.insertAdjacentHTML("afterbegin", `
-        <h1>ПОЛУНДРА!</h1>
+        <h1>ПОЛУНДРА! ${e}</h1>
         `)
+    }
+
+    drawMain(data) {
+        this.array = data.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
+        if (mainCatalogHtml != null) {
+            this.array.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
+        }
     }
 
     drawItem(product) {
@@ -203,15 +183,6 @@ class MainCatalog extends DrawHtmlItems {
                 <p class="price">$${product.price}</p>
             </a>
         </div>`)
-    }
-
-    async drawCatalog() {
-        let arr = []
-        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
-            , error => this.errorFunc(error))
-        if (mainCatalogHtml != null) {
-            arr.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
-        }
     }
 
     async addToCartListner() {
@@ -239,13 +210,14 @@ class Catalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
-        this.productService = new ProductService()
-        this.pr = this.productService.makeGETRequest()
+        const pr = this.productService.makeGETRequest()
+        pr.then(result => this.drawMain(result),
+            error => this.errorFunc(error))
     }
 
-    errorFunc() {
+    errorFunc(e) {
         catalogHtml.insertAdjacentHTML("afterbegin", `
-      <h1>ПОЛУНДРА!</h1>`)
+      <h1>ПОЛУНДРА! ${e}</h1>`)
     }
 
     drawItem(product) {
@@ -268,11 +240,10 @@ class Catalog extends DrawHtmlItems {
             </a>
         </div>`)
     }
-
-    drawCatalog() {
-        if (catalogHtml !== null) {
-            this.pr.then(result => result.reverse().forEach(product => this.drawItem(product)),
-                error => this.errorFunc(error))
+    drawMain(data) {
+        this.array = data.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
+        if (catalogHtml != null) {
+            this.array.reverse().forEach(prd => this.drawItem(prd))
         }
     }
 }
@@ -287,7 +258,7 @@ class Cart {
         let isInCart = false
         for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i)
-            if (key === `${prod.id -1}`) {
+            if (key === `${prod.id - 1}`) {
                 let product = JSON.parse(localStorage.getItem(key))
                 product.quant += 1
                 console.log(product)
@@ -297,12 +268,13 @@ class Cart {
             }
         }
         if (!isInCart) {
-            localStorage.setItem(`${prod.id -1}`, `${JSON.stringify(prod)}`)
+            localStorage.setItem(`${prod.id - 1}`, `${JSON.stringify(prod)}`)
         }
         basketNum.style.display = 'block';
         basketNum.textContent = `${localStorage.length}`;
     }
-    addToListBasket(){
+
+    addToListBasket() {
         for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i)
             let product = JSON.parse(localStorage.getItem(key))
@@ -311,9 +283,11 @@ class Cart {
             // this.drawItem(product)
         }
     }
-    draw(){
-        this.list.forEach(p => this.drawItem(p) )
+
+    draw() {
+        this.list.forEach(p => this.drawItem(p))
     }
+
     drawItem(item) {
         if (cartHtml != null) {
             // for (const product of cart) {
@@ -336,7 +310,7 @@ class Cart {
         }
     }
 
-    clear(){
+    clear() {
         this.list = []
         localStorage.clear()
         this.addToListBasket()
@@ -366,17 +340,17 @@ const cart2 = new Cart()
 // dataBase.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
 // catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
 
-catalogs.drawCatalog()
+// catalogs.drawCatalog()
 
-mainCatalog.drawCatalog()
+// mainCatalog.drawCatalog()
 mainCatalog.addToCartListner()
 cart2.addToListBasket()
 cart2.draw()
-if(cartHtml!=null){
+if (cartHtml != null) {
 
 }
 /*Почему не перерисовывается корзина?*/
-cart2.clearCart.addEventListener('click', ()=>{
+cart2.clearCart.addEventListener('click', () => {
     cart2.clear()
     cart2.draw()
 })
