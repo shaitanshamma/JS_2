@@ -14,7 +14,6 @@ let basketCount;
 
 let cart = [];
 
-
 // let catalog = [];
 //
 // let dataBase = [];
@@ -35,41 +34,8 @@ class Product {
     }
 }
 
-// class ProductRep {
-//     constructor() {
-//         this.url='database/database.json'
-//     }
-//
-//     makeGETRequest(error, success) {
-//         let xhr;
-//
-//         if (window.XMLHttpRequest) {
-//             xhr = new XMLHttpRequest();
-//         } else if (window.ActiveXObject) {
-//             xhr = new ActiveXObject("Microsoft.XMLHTTP");
-//         }
-//
-//         xhr.onreadystatechange = function () {
-//             if (xhr.readyState === 4) {
-//                 if(xhr.status ===200){
-//                     success(JSON.parse(xhr.responseText));
-//                 }else if(xhr.status > 400){
-//                     error()
-//                 }
-//             }
-//         }
-//
-//         xhr.open('GET', this.url, true);
-//         xhr.send();
-//     }
-// }
-
 class ProductService {
     constructor() {
-        // this.url = 'database/database.json'
-        // // this.prdrep = new ProductRep()
-        // // this.prdrep.makeGETRequest(this.error.bind(this),this.dbCreate.bind(this) )
-        this.localDb = []
     }
 
     makeGETRequest() {
@@ -129,13 +95,7 @@ class DrawHtmlItems {
     }
 
     drawItem() {
-
     }
-    //
-    // addToList(...item) {
-    //     this.array.push(...item)
-    // }
-
 }
 
 class MainCatalog extends DrawHtmlItems {
@@ -240,6 +200,7 @@ class Catalog extends DrawHtmlItems {
             </a>
         </div>`)
     }
+
     drawMain(data) {
         this.array = data.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
         if (catalogHtml != null) {
@@ -252,6 +213,17 @@ class Cart {
     constructor() {
         this.list = []
         this.clearCart = document.querySelector('.cart_button.clear')
+        // this.form = document.querySelector('#submit_form')
+        // this.nameInput = this.form.querySelector('#name')
+        // this.emailInput = this.form.querySelector('#email')
+        // this.phoneInput = this.form.querySelector('#phone')
+        // this.nameInput.addEventListener('input', (e) => this.nameValid(e))
+        // this.emailInput.addEventListener('input', (e) => this.emailValid(e))
+        // this.phoneInput.addEventListener('input', (e) => this.phoneValid(e))
+        // this.form.addEventListener('submit', (e) => this.formValid(e))
+        // this.nV = false
+        // this.pV = false
+        // this.eV = false
     }
 
     addToBasket(prod) {
@@ -317,6 +289,100 @@ class Cart {
         this.draw()
         console.log("done")
     }
+
+    // formValidation(e) {
+    //     //  // e.preventDefault()
+    //     // let error = false
+    //     // const form = document.querySelector('#submit_form')
+    //     // const nameInput = form.querySelector('#name')
+    //     // const emailInput = form.querySelector('#email')
+    //     // const stateInput = form.querySelector('#state')
+    //     // const phoneInput = form.querySelector('#phone')
+    //     // const submit = form.querySelector('.get_quote')
+    //     // const regName = /^[а-яА-ЯёЁa-zA-Z]+$/gi
+    //     // const regEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gi
+    //     // const regPhone = /^\+7\([0-9]{3}\)([0-9]{3})+-+([0-9]{4})+$/gi
+    //     //
+    //     // nameInput.addEventListener('input',(e)=>{
+    //     //     console.log(nameInput.value)
+    //     //     if(!regName.test(nameInput.value)){
+    //     //         nameInput.style.border = '2px solid red'
+    //     //         nameInput.setCustomValidity("Имя должно содержать только буквы!")
+    //     //         console.log("input ошибка")
+    //     //     }
+    //     // })
+    //
+    //     // if(!nameInput.value.match(regName)){
+    //     //     nameInput.setCustomValidity("Имя должно содержать только буквы!")
+    //     //     nameInput.style.border = '2px solid red'
+    //     //     error = true
+    //     // }
+    //     // if(!stateInput.value.match(regName)){
+    //     //     stateInput.setCustomValidity("Район должен содержать только буквы!")
+    //     //     stateInput.style.border = '2px solid red'
+    //     // }
+    //     // if(!emailInput.value.match(regEmail)){
+    //     //     emailInput.setCustomValidity("Не верный формат email")
+    //     //     emailInput.style.border = '2px solid red'
+    //     // }
+    //     // if(!phoneInput.value.match(regPhone)){
+    //     //     phoneInput.setCustomValidity("Не верный формат телефона")
+    //     //     phoneInput.style.border = '2px solid red'
+    //     // }
+    //     // if(!error){
+    //     //     e.preventDefault()
+    //     // }
+    //     // else {
+    //     //     this.formValidation(e)
+    //     // }
+    // }
+
+    nameValid(e) {
+        const regName = /^[а-яА-ЯёЁa-zA-Z]+$/gi
+        if (!regName.test(e.target.value)) {
+            e.target.style.border = '2px solid red'
+        } else {
+            console.log("все путем")
+            e.target.style.border = '1px solid black'
+            this.nV = true
+        }
+    }
+
+    emailValid(e) {
+        const regEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gi
+        if (!regEmail.test(e.target.value)||e.target.value==='') {
+            e.target.style.border = '2px solid red'
+        } else {
+            console.log("все путем")
+            e.target.style.border = '1px solid black'
+            this.eV = true
+        }
+    }
+
+    phoneValid(e) {
+        const regPhone = /^\+7\([0-9]{3}\)([0-9]{3})+-+([0-9]{4})+$/gi
+        if (!regPhone.test(e.target.value)) {
+            e.target.style.border = '2px solid red'
+        } else {
+            console.log("все путем")
+            e.target.style.border = '1px solid black'
+            this.pV = true
+        }
+    }
+
+
+    formValid(e) {
+        console.log()
+        let form = document.querySelector('#submit_form')
+        let field = form.querySelectorAll('input')
+        for (let i = 0; i <field.length ; i++) {
+            if(field[i].value===''|| this.pV===false || this.eV===false || this.nV===false){
+                e.preventDefault()
+                console.log('form aborted')
+            }else {
+            }
+        }
+    }
 }
 
 
@@ -350,23 +416,25 @@ if (cartHtml != null) {
 
 }
 /*Почему не перерисовывается корзина?*/
-cart2.clearCart.addEventListener('click', () => {
-    cart2.clear()
-    cart2.draw()
-})
+// cart2.clearCart.addEventListener('click', () => {
+//     cart2.clear()
+//     cart2.draw()
+// })
 
 window.onload = () => {
-    if (document.querySelector(".cart_items") !== null) {
-        basketCount = cart.length;
-        basketNum.textContent = `${basketCount}`;
+    if (localStorage.length===0) {
+        console.log(localStorage.length)
+        basketCount = localStorage.length;
+        basketNum.style.display='none';
     } else {
-        basketNum.style.display = 'none';
+        basketNum.style.display='block';
+        basketNum.textContent = `${localStorage.length}`;
     }
 }
-window.onload = () => {
-    basketNum.style.display = 'block';
-    basketNum.textContent = `${localStorage.length}`;
-}
+// window.onload = () => {
+//     basketNum.style.display = 'block';
+//     basketNum.textContent = `${localStorage.length}`;
+// }
 
 overlayMenuOpenButton.onclick = () => {
     if (overlayStyle.style.display === "none") {

@@ -94,38 +94,6 @@
         <div class="wrapper">
             <div class="products_in_cart">
                 <div class="cart_items">
-<!--                    <div class="product_in_cart" id="pr1">-->
-<!--                        <img src="img/small_img_1.png" alt="" class="product_img">-->
-<!--                        <div class="description">-->
-<!--                            <h3>MANGO PEOPLE T-SHIRT</h3>-->
-<!--                            <p class="product_decr">Price: <span>$300</span></p>-->
-<!--                            <p class="product_decr">Color: Red</p>-->
-<!--                            <p class="product_decr">Size: Xl</p>-->
-<!--                            <label>-->
-<!--                                <span class="product_decr">Quantity:</span>-->
-<!--                                <input type="number" class="input_number">-->
-<!--                            </label>-->
-<!--                            <a href="#" class="close_prd" onclick="removeItem('pr1')">-->
-<!--                                <i class="far fa-window-close product-close"></i>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="product_in_cart" id="pr2">-->
-<!--                        <img src="img/small_img_2.png" alt="" class="product_img">-->
-<!--                        <div class="description">-->
-<!--                            <h3>MANGO PEOPLE T-SHIRT</h3>-->
-<!--                            <p class="product_decr">Price: <span>$300</span></p>-->
-<!--                            <p class="product_decr">Color: Red</p>-->
-<!--                            <p class="product_decr">Size: Xl</p>-->
-<!--                            <label>-->
-<!--                                <span class="product_decr">Quantity:</span>-->
-<!--                                <input type="number" class="input_number">-->
-<!--                            </label>-->
-<!--                            <a href="#" class="close_prd" onclick="removeItem('pr2')">-->
-<!--                                <i class="far fa-window-close product-close"></i>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
                 <div class="cart_buttons">
                     <div class="">
@@ -138,19 +106,24 @@
             </div>
             <div class="order_and_price">
                 <div class="order_form">
-                    <h4>SHIPPING ADDRESS</h4>
-                    <label>
-                        <input type="text" placeholder="Bangladesh">
-                    </label>
-                    <label>
-                        <input type="text" placeholder="State">
-                    </label>
-                    <label>
-                        <input type="text" placeholder="Postcode / Zip">
-                    </label>
-                    <div class="">
-                        <button class="get_quote" onclick="location.href='cart.html'">GET A QUOTE</button>
-                    </div>
+                    <form id="submit_form">
+                        <h4>SHIPPING ADDRESS</h4>
+                        <label>
+                            <input type="text" placeholder="Name" id="name">
+                        </label>
+<!--                        <label>-->
+<!--                            <input type="text" placeholder="State" id="state">-->
+<!--                        </label>-->
+                        <label>
+                            <input type="text" placeholder="Email" id="email">
+                        </label>
+                        <label>
+                            <input type="text" placeholder="Phone" id="phone">
+                        </label>
+                        <div class="">
+                            <button class="get_quote" type="submit">GET A QUOTE</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="total_price">
                     <h5>SUB TOTAL $900</h5>
