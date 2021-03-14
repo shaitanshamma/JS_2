@@ -105,7 +105,6 @@ class MainCatalog extends DrawHtmlItems {
         this.productService = new ProductService()
         this.pr = this.productService.makeGETRequest()
         this.productService.makeGPutRequest.bind(this)
-        this.basket = new Cart()
         const promise = this.productService.makeGETRequest()
         promise.then(result => this.drawMain(result),
             err => this.errorFunc(err))
@@ -121,7 +120,9 @@ class MainCatalog extends DrawHtmlItems {
         this.array = data.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
         if (mainCatalogHtml != null) {
             this.array.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
+            this.addToCartListner(this.array.reverse())
         }
+        console.log(this.array, 'from promise')
     }
 
     drawItem(product) {
@@ -145,23 +146,15 @@ class MainCatalog extends DrawHtmlItems {
         </div>`)
     }
 
-    async addToCartListner() {
-        let arr = []
-        let basket = new Cart()
-        await this.pr.then(result => arr = result.map(({id, title, brand, price, imgSrc, popular, quant}) => new Product(id, title, brand, price, imgSrc, popular, quant)),
-            error => this.errorFunc(error))
-        if (mainCatalogHtml != null) {
+    addToCartListner(db) {
+        const basket = new Cart()
             mainCatalogHtml.addEventListener('click', function (e) {
-                    arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
+                    db.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
                     // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? localStorage.setItem(`${prod.id}`,`${JSON.stringify(prod)}`) : new Error('не могу добавить продукт'))
                     // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
                     // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? cart.push(prod) : new Error('не могу добавить продукт'))
                 }
             )
-            // console.log(cart)
-            console.log(localStorage)
-            console.log("clicl")
-        }
     }
 }
 
@@ -213,7 +206,7 @@ class Cart {
     constructor() {
         this.list = []
         this.clearCart = document.querySelector('.cart_button.clear')
-        // this.form = document.querySelector('#submit_form')
+        this.form = document.querySelector('#submit_form')
         // this.nameInput = this.form.querySelector('#name')
         // this.emailInput = this.form.querySelector('#email')
         // this.phoneInput = this.form.querySelector('#phone')
@@ -289,100 +282,6 @@ class Cart {
         this.draw()
         console.log("done")
     }
-
-    // formValidation(e) {
-    //     //  // e.preventDefault()
-    //     // let error = false
-    //     // const form = document.querySelector('#submit_form')
-    //     // const nameInput = form.querySelector('#name')
-    //     // const emailInput = form.querySelector('#email')
-    //     // const stateInput = form.querySelector('#state')
-    //     // const phoneInput = form.querySelector('#phone')
-    //     // const submit = form.querySelector('.get_quote')
-    //     // const regName = /^[а-яА-ЯёЁa-zA-Z]+$/gi
-    //     // const regEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gi
-    //     // const regPhone = /^\+7\([0-9]{3}\)([0-9]{3})+-+([0-9]{4})+$/gi
-    //     //
-    //     // nameInput.addEventListener('input',(e)=>{
-    //     //     console.log(nameInput.value)
-    //     //     if(!regName.test(nameInput.value)){
-    //     //         nameInput.style.border = '2px solid red'
-    //     //         nameInput.setCustomValidity("Имя должно содержать только буквы!")
-    //     //         console.log("input ошибка")
-    //     //     }
-    //     // })
-    //
-    //     // if(!nameInput.value.match(regName)){
-    //     //     nameInput.setCustomValidity("Имя должно содержать только буквы!")
-    //     //     nameInput.style.border = '2px solid red'
-    //     //     error = true
-    //     // }
-    //     // if(!stateInput.value.match(regName)){
-    //     //     stateInput.setCustomValidity("Район должен содержать только буквы!")
-    //     //     stateInput.style.border = '2px solid red'
-    //     // }
-    //     // if(!emailInput.value.match(regEmail)){
-    //     //     emailInput.setCustomValidity("Не верный формат email")
-    //     //     emailInput.style.border = '2px solid red'
-    //     // }
-    //     // if(!phoneInput.value.match(regPhone)){
-    //     //     phoneInput.setCustomValidity("Не верный формат телефона")
-    //     //     phoneInput.style.border = '2px solid red'
-    //     // }
-    //     // if(!error){
-    //     //     e.preventDefault()
-    //     // }
-    //     // else {
-    //     //     this.formValidation(e)
-    //     // }
-    // }
-
-    nameValid(e) {
-        const regName = /^[а-яА-ЯёЁa-zA-Z]+$/gi
-        if (!regName.test(e.target.value)) {
-            e.target.style.border = '2px solid red'
-        } else {
-            console.log("все путем")
-            e.target.style.border = '1px solid black'
-            this.nV = true
-        }
-    }
-
-    emailValid(e) {
-        const regEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gi
-        if (!regEmail.test(e.target.value)||e.target.value==='') {
-            e.target.style.border = '2px solid red'
-        } else {
-            console.log("все путем")
-            e.target.style.border = '1px solid black'
-            this.eV = true
-        }
-    }
-
-    phoneValid(e) {
-        const regPhone = /^\+7\([0-9]{3}\)([0-9]{3})+-+([0-9]{4})+$/gi
-        if (!regPhone.test(e.target.value)) {
-            e.target.style.border = '2px solid red'
-        } else {
-            console.log("все путем")
-            e.target.style.border = '1px solid black'
-            this.pV = true
-        }
-    }
-
-
-    formValid(e) {
-        console.log()
-        let form = document.querySelector('#submit_form')
-        let field = form.querySelectorAll('input')
-        for (let i = 0; i <field.length ; i++) {
-            if(field[i].value===''|| this.pV===false || this.eV===false || this.nV===false){
-                e.preventDefault()
-                console.log('form aborted')
-            }else {
-            }
-        }
-    }
 }
 
 
@@ -400,26 +299,81 @@ let prd_11 = new Product(11, 'ELLERY X M\'O CAPSULE', undefined, 66, 'img/catalo
 let prd_12 = new Product(12, 'ELLERY X M\'O CAPSULE', undefined, 50, 'img/catalog/feature_12.png', true)
 
 const catalogs = new Catalog()
+
 const mainCatalog = new MainCatalog()
-const cart2 = new Cart()
-// localStorage.clear()
-// dataBase.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
-// catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
 
-// catalogs.drawCatalog()
-
-// mainCatalog.drawCatalog()
-mainCatalog.addToCartListner()
-cart2.addToListBasket()
-cart2.draw()
 if (cartHtml != null) {
-
+    const cart2 = new Cart()
+    cart2.addToListBasket()
+    cart2.draw()
+    clearCart = document.querySelector('.cart_button.clear')
+    clearCart.addEventListener('click',e=>this.clear(e))
+    const form = document.querySelector('#submit_form')
+    nameInput = form.querySelector('#name')
+    emailInput = form.querySelector('#email')
+    phoneInput = form.querySelector('#phone')
+    nameInput.addEventListener('input', (e) => nameValid(e))
+    emailInput.addEventListener('input', (e) => emailValid(e))
+    phoneInput.addEventListener('input', (e) => phoneValid(e))
+    form.addEventListener('submit', (e) => formValid(e))
+    nV = false
+    pV = false
+    eV = false
 }
-/*Почему не перерисовывается корзина?*/
-// cart2.clearCart.addEventListener('click', () => {
-//     cart2.clear()
-//     cart2.draw()
-// })
+
+function nameValid(e) {
+    const regName = /^[а-яА-ЯёЁa-zA-Z]+$/gi
+    if (!regName.test(e.target.value)) {
+        e.target.style.border = '2px solid red'
+    } else {
+        console.log("все путем")
+        e.target.style.border = '1px solid black'
+        this.nV = true
+    }
+}
+
+function emailValid(e) {
+    const regEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gi
+    if (!regEmail.test(e.target.value)||e.target.value==='') {
+        e.target.style.border = '2px solid red'
+    } else {
+        console.log("все путем")
+        e.target.style.border = '1px solid black'
+        this.eV = true
+    }
+}
+
+function phoneValid(e) {
+    const regPhone = /^\+7\([0-9]{3}\)([0-9]{3})+-+([0-9]{4})+$/gi
+    if (!regPhone.test(e.target.value)) {
+        e.target.style.border = '2px solid red'
+    } else {
+        console.log("все путем")
+        e.target.style.border = '1px solid black'
+        this.pV = true
+    }
+}
+
+
+function formValid(e) {
+    const form = document.querySelector('#submit_form')
+    let field = form.querySelectorAll('input')
+    for (let i = 0; i <field.length ; i++) {
+        if(field[i].value===''|| this.pV===false || this.eV===false || this.nV===false){
+            e.preventDefault()
+            console.log('form aborted')
+        }else {
+            localStorage.clear()
+        }
+    }
+}
+
+function clear() {
+    cartHtml.textContent = ''
+    localStorage.clear()
+    basketCount = localStorage.length;
+    basketNum.style.display='none';
+}
 
 window.onload = () => {
     if (localStorage.length===0) {
@@ -431,10 +385,6 @@ window.onload = () => {
         basketNum.textContent = `${localStorage.length}`;
     }
 }
-// window.onload = () => {
-//     basketNum.style.display = 'block';
-//     basketNum.textContent = `${localStorage.length}`;
-// }
 
 overlayMenuOpenButton.onclick = () => {
     if (overlayStyle.style.display === "none") {
@@ -452,15 +402,4 @@ overlayMenuClose.onclick = () => {
     document.getElementById("overlay_menu").style.display = "none";
     document.getElementById("overlay_menu").style.opacity = "0";
 };
-
-// function removeItem(id) {
-//     document.getElementById(id).remove();
-//     if (document.querySelector(".cart_items").children.length !== 0) {
-//         basketCount--;
-//         basketNum.textContent = `${basketCount}`;
-//     } else {
-//         document.querySelector(".products_in_cart").remove();
-//         basketNum.textContent = `0`;
-//     }
-// }
 
