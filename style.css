@@ -571,6 +571,12 @@ header {
     -ms-flex-pack: justify;
     justify-content: space-between;
 }
+.goods-list{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
 
 .feature_img {
     height: 420px;
