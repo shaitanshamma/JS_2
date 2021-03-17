@@ -46,7 +46,7 @@
                     <div class="nav_button"><a href="#"><img src="img/Forma_2.png" alt="" class="img_header"></a></div>
                     <div class="nav_button basket" @click="showBasket"><img src="img/Forma_3.png" alt=""
                                                                             class="img_header">
-                        <p class="basket__count" id="basket__count">{{cart.length}}</p>
+                        <p class="basket__count" id="basket__count" v-if="cart.length!==0">{{cart.length}}</p>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
             </div>
         </div>
     </header>
-    <section class="top_content">
+    <section class="top_content" v-if="isVisibleCatalog">
         <div class="fashion">
             <div class="left">
                 <img src="img/Layer57.png" alt="" class="left_img">
@@ -99,7 +99,7 @@
             </div>
         </div>
     </section>
-    <section class="content_1">
+    <section class="content_1" v-if="isVisibleCatalog">
         <div class="wrapper">
 <!--            <a class="w-100" href="#">-->
 
@@ -131,13 +131,13 @@
             </div>
         </div>
     </section>
-    <section class="feature">
+    <section class="feature" v-if="isVisibleCatalog">
         <h2>Fetured Items</h2>
         <p>Shop for items based on what we featured in this week</p>
     </section>
     <section class="feature_content main" v-if="isVisibleCatalog">
 <!--        <goods-list :goods="filtredGoods"></goods-list>-->
-        <div class="good" v-for="good of goods" :key="good.id">
+        <div class="good" v-for="good of goods" :key="good.id" v-if="good.popular">
             <div class="fature_item" :id="good.id">
                 <div class="overlay">
                     <a href="cart.html">
@@ -159,6 +159,11 @@
         <div class="browse_all">
             <button class="button_browse" onclick="location.href='catalog.html'" title="Catalog">Browse All Product
             </button>
+        </div>
+    </section>
+    <section class="cart_top" v-if="isVisibleCart">
+        <div class="wrapper">
+            <h2>SHOPPING CART</h2>
         </div>
     </section>
     <section class="central_cart" v-if="isVisibleCart">

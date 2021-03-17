@@ -338,6 +338,7 @@ header {
 
 .basket {
     position: relative;
+    cursor: pointer;
 }
 
 .basket__count {

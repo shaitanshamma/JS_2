@@ -121,3 +121,25 @@ const vue = new Vue({
 //     </div>
 //   `
 // })
+const overlayMenuOpenButton = document.getElementById("open__overlay");
+
+const overlayStyle = document.getElementById("overlay_menu");
+
+const overlayMenuClose = document.getElementById("close__overlay");
+
+overlayMenuOpenButton.onclick = () => {
+    if (overlayStyle.style.display === "none") {
+        document.body.style.overflow = 'hidden'
+        document.getElementById("overlay_menu").style.opacity = "1";
+        document.getElementById("overlay_menu").style.display = "flex";
+    } else {
+        document.body.style.overflow = null
+        document.getElementById("overlay_menu").style.opacity = "0";
+        document.getElementById("overlay_menu").style.display = "none";
+    }
+};
+overlayMenuClose.onclick = () => {
+    document.body.style.overflow = null
+    document.getElementById("overlay_menu").style.display = "none";
+    document.getElementById("overlay_menu").style.opacity = "0";
+};
