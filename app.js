@@ -14,22 +14,23 @@ let basketCount;
 
 let cart = [];
 
-let catalog = [];
-
-const dataBase = [];
+// let catalog = [];
+//
+// let dataBase = [];
 
 const mainCatalogHtml = document.querySelector('.feature_content.main');
 
 const catalogHtml = document.querySelector('.feature_content.catalog');
 
 class Product {
-    constructor(id, title, brand = 'noname', price, imgSrc, popular = false) {
+    constructor(id, title, brand = 'noname', price, imgSrc, popular = false, quant = 1) {
         this.id = id;
         this.title = title;
         this.brand = brand;
         this.price = price;
         this.imgSrc = imgSrc;
         this.popular = popular;
+        this.quant = quant
     }
 }
 
@@ -37,12 +38,54 @@ class ProductService {
     constructor() {
     }
 
-    selectAllProducts(dataBase) {
-        return dataBase
+    makeGETRequest() {
+        let url = 'database/database.json'
+        return new Promise(function (resolve, reject) {
+            let xhr;
+
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.responseText));
+                    } else if (xhr.status > 400) {
+                        reject(new Error("полундра"))
+                    }
+                }
+            }
+            xhr.open('GET', url, true);
+            xhr.send();
+        })
     }
 
-    selectPopularProducts(dataBase) {
-        return dataBase.filter(product => product.popular)
+
+    makeGPutRequest(product) {
+        let cart = 'database/cart.json'
+
+        let xhr;
+
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.open('POST', cart, true);
+        xhr.send(product);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log('ok')
+                } else if (xhr.status > 400) {
+                    new Error("полундра")
+                }
+            }
+        }
     }
 }
 
@@ -52,13 +95,7 @@ class DrawHtmlItems {
     }
 
     drawItem() {
-
     }
-
-    addToList(...item) {
-        this.array.push(...item)
-    }
-
 }
 
 class MainCatalog extends DrawHtmlItems {
@@ -66,6 +103,26 @@ class MainCatalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
+        this.pr = this.productService.makeGETRequest()
+        this.productService.makeGPutRequest.bind(this)
+        const promise = this.productService.makeGETRequest()
+        promise.then(result => this.drawMain(result),
+            err => this.errorFunc(err))
+    }
+
+    errorFunc(e) {
+        mainCatalogHtml.insertAdjacentHTML("afterbegin", `
+        <h1>ПОЛУНДРА! ${e}</h1>
+        `)
+    }
+
+    drawMain(data) {
+        this.array = data.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
+        if (mainCatalogHtml != null) {
+            this.array.reverse().filter(prod => prod.popular).forEach(prd => this.drawItem(prd))
+            this.addToCartListner(this.array.reverse())
+        }
+        console.log(this.array, 'from promise')
     }
 
     drawItem(product) {
@@ -89,11 +146,15 @@ class MainCatalog extends DrawHtmlItems {
         </div>`)
     }
 
-    drawCatalog() {
-        this.array = this.productService.selectPopularProducts(dataBase)
-        if (mainCatalogHtml !== null) {
-            this.array.reverse().forEach(product => this.drawItem(product))
-        }
+    addToCartListner(db) {
+        const basket = new Cart()
+            mainCatalogHtml.addEventListener('click', function (e) {
+                    db.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
+                    // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? localStorage.setItem(`${prod.id}`,`${JSON.stringify(prod)}`) : new Error('не могу добавить продукт'))
+                    // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? basket.addToBasket(prod) : new Error('не могу добавить продукт'))
+                    // arr.forEach(prod => `add_to_cart_${prod.id}` === e.target.id ? cart.push(prod) : new Error('не могу добавить продукт'))
+                }
+            )
     }
 }
 
@@ -102,6 +163,14 @@ class Catalog extends DrawHtmlItems {
     constructor() {
         super();
         this.productService = new ProductService()
+        const pr = this.productService.makeGETRequest()
+        pr.then(result => this.drawMain(result),
+            error => this.errorFunc(error))
+    }
+
+    errorFunc(e) {
+        catalogHtml.insertAdjacentHTML("afterbegin", `
+      <h1>ПОЛУНДРА! ${e}</h1>`)
     }
 
     drawItem(product) {
@@ -125,10 +194,10 @@ class Catalog extends DrawHtmlItems {
         </div>`)
     }
 
-    drawCatalog() {
-        this.array = this.productService.selectAllProducts(dataBase)
-        if (catalogHtml !== null) {
-            this.array.reverse().forEach(product => this.drawItem(product))
+    drawMain(data) {
+        this.array = data.map(({id, title, brand, price, imgSrc, popular}) => new Product(id, title, brand, price, imgSrc, popular))
+        if (catalogHtml != null) {
+            this.array.reverse().forEach(prd => this.drawItem(prd))
         }
     }
 }
@@ -136,56 +205,85 @@ class Catalog extends DrawHtmlItems {
 class Cart {
     constructor() {
         this.list = []
+        this.clearCart = document.querySelector('.cart_button.clear')
+        this.form = document.querySelector('#submit_form')
+        // this.nameInput = this.form.querySelector('#name')
+        // this.emailInput = this.form.querySelector('#email')
+        // this.phoneInput = this.form.querySelector('#phone')
+        // this.nameInput.addEventListener('input', (e) => this.nameValid(e))
+        // this.emailInput.addEventListener('input', (e) => this.emailValid(e))
+        // this.phoneInput.addEventListener('input', (e) => this.phoneValid(e))
+        // this.form.addEventListener('submit', (e) => this.formValid(e))
+        // this.nV = false
+        // this.pV = false
+        // this.eV = false
     }
 
-    addToCart(item) {
-        this.list.push(item)
-        this.drawCart()
-    }
-    //---------------------------Заглушка --------------------------------
-    // drawCart(item) {
-    //     const productService = new ProductService()
-    //     const catalog = productService.selectAllProducts(dataBase)
-    //     let isInCart = false
-    //     for (const prod of catalog) {
-    //         if (item.target.id === `add_to_cart_${prod.id}`) {
-    //             for (let i = 0; i < this.list.length; i++) {
-    //                 if (this.list[i].id === prod.id) {
-    //                     this.list[i].quantity += 1
-    //                     isInCart = true
-    //                 }
-    //             }
-    //             if (!isInCart) {
-    //                 prod.quantity = 1
-    //                 this.list.push(prod)
-    //             }
-    //         }
-    //     }
-    //     basketNum.style.display = 'block';
-    //     basketNum.textContent = `${cart.length}`;
-    //      basketNum.textContent = `${this.list.length}`;
-    // }
-    drawCart(item) {
+    addToBasket(prod) {
         let isInCart = false
-        for (const prod of catalog) {
-            if (item.target.id === `add_to_cart_${prod.id}`) {
-                for (let i = 0; i < cart.length; i++) {
-                    if (cart[i].id === prod.id) {
-                        cart[i].quantity += 1
-                        isInCart = true
-                    }
-                }
-                if (!isInCart) {
-                    prod.quantity = 1
-                    cart.push(prod)
-                }
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i)
+            if (key === `${prod.id - 1}`) {
+                let product = JSON.parse(localStorage.getItem(key))
+                product.quant += 1
+                console.log(product)
+                localStorage.removeItem(key)
+                localStorage.setItem(`${product.id - 1}`, `${JSON.stringify(product)}`)
+                isInCart = true
             }
         }
+        if (!isInCart) {
+            localStorage.setItem(`${prod.id - 1}`, `${JSON.stringify(prod)}`)
+        }
         basketNum.style.display = 'block';
-        basketNum.textContent = `${cart.length}`;
-        console.log(cart);
+        basketNum.textContent = `${localStorage.length}`;
+    }
+
+    addToListBasket() {
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i)
+            let product = JSON.parse(localStorage.getItem(key))
+            console.log(product, 'prod in storage')
+            this.list.push(product)
+            // this.drawItem(product)
+        }
+    }
+
+    draw() {
+        this.list.forEach(p => this.drawItem(p))
+    }
+
+    drawItem(item) {
+        if (cartHtml != null) {
+            // for (const product of cart) {
+            cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${item.id}'>
+                        <img src='${item.imgSrc}' alt="" class="product_img">
+                        <div class="description">
+                            <h3>MANGO PEOPLE T-SHIRT</h3>
+                            <p class="product_decr">Price: <span>${item.price}</span></p>
+                            <p class="product_decr">Color: Red</p>
+                            <p class="product_decr">Size: Xl</p>
+                            <label>
+                                <span class="product_decr">Quantity:</span>
+                                <input type="number" class="input_number" value="${item.quant}">
+                            </label>
+                            <a href="#" class="close_prd" >
+                                <i class="far fa-window-close product-close"></i>
+                            </a>
+                        </div>
+                    </div>`)
+        }
+    }
+
+    clear() {
+        this.list = []
+        localStorage.clear()
+        this.addToListBasket()
+        this.draw()
+        console.log("done")
     }
 }
+
 
 let prd_1 = new Product(1, 'ELLERY X M\'O CAPSULE', undefined, 52, 'img/catalog/feature_1.png', true)
 let prd_2 = new Product(2, 'ELLERY X M\'O CAPSULE', undefined, 54, 'img/catalog/feature_2.png')
@@ -201,22 +299,90 @@ let prd_11 = new Product(11, 'ELLERY X M\'O CAPSULE', undefined, 66, 'img/catalo
 let prd_12 = new Product(12, 'ELLERY X M\'O CAPSULE', undefined, 50, 'img/catalog/feature_12.png', true)
 
 const catalogs = new Catalog()
+
 const mainCatalog = new MainCatalog()
-const cart2 = new Cart()
 
-dataBase.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
-catalog.push(prd_1, prd_2, prd_3, prd_4, prd_5, prd_6, prd_7, prd_8, prd_9, prd_10, prd_11, prd_12)
+if (cartHtml != null) {
+    const cart2 = new Cart()
+    cart2.addToListBasket()
+    cart2.draw()
+    clearCart = document.querySelector('.cart_button.clear')
+    clearCart.addEventListener('click',e=>this.clear(e))
+    const form = document.querySelector('#submit_form')
+    nameInput = form.querySelector('#name')
+    emailInput = form.querySelector('#email')
+    phoneInput = form.querySelector('#phone')
+    nameInput.addEventListener('input', (e) => nameValid(e))
+    emailInput.addEventListener('input', (e) => emailValid(e))
+    phoneInput.addEventListener('input', (e) => phoneValid(e))
+    form.addEventListener('submit', (e) => formValid(e))
+    nV = false
+    pV = false
+    eV = false
+}
 
-catalogs.drawCatalog()
+function nameValid(e) {
+    const regName = /^[а-яА-ЯёЁa-zA-Z]+$/gi
+    if (!regName.test(e.target.value)) {
+        e.target.style.border = '2px solid red'
+    } else {
+        console.log("все путем")
+        e.target.style.border = '1px solid black'
+        this.nV = true
+    }
+}
 
-mainCatalog.drawCatalog()
+function emailValid(e) {
+    const regEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gi
+    if (!regEmail.test(e.target.value)||e.target.value==='') {
+        e.target.style.border = '2px solid red'
+    } else {
+        console.log("все путем")
+        e.target.style.border = '1px solid black'
+        this.eV = true
+    }
+}
+
+function phoneValid(e) {
+    const regPhone = /^\+7\([0-9]{3}\)([0-9]{3})+-+([0-9]{4})+$/gi
+    if (!regPhone.test(e.target.value)) {
+        e.target.style.border = '2px solid red'
+    } else {
+        console.log("все путем")
+        e.target.style.border = '1px solid black'
+        this.pV = true
+    }
+}
+
+
+function formValid(e) {
+    const form = document.querySelector('#submit_form')
+    let field = form.querySelectorAll('input')
+    for (let i = 0; i <field.length ; i++) {
+        if(field[i].value===''|| this.pV===false || this.eV===false || this.nV===false){
+            e.preventDefault()
+            console.log('form aborted')
+        }else {
+            localStorage.clear()
+        }
+    }
+}
+
+function clear() {
+    cartHtml.textContent = ''
+    localStorage.clear()
+    basketCount = localStorage.length;
+    basketNum.style.display='none';
+}
 
 window.onload = () => {
-    if (document.querySelector(".cart_items") !== null) {
-        basketCount = cart.length;
-        basketNum.textContent = `${basketCount}`;
+    if (localStorage.length===0) {
+        console.log(localStorage.length)
+        basketCount = localStorage.length;
+        basketNum.style.display='none';
     } else {
-        basketNum.style.display = 'none';
+        basketNum.style.display='block';
+        basketNum.textContent = `${localStorage.length}`;
     }
 }
 
@@ -236,83 +402,4 @@ overlayMenuClose.onclick = () => {
     document.getElementById("overlay_menu").style.display = "none";
     document.getElementById("overlay_menu").style.opacity = "0";
 };
-
-function removeItem(id) {
-    document.getElementById(id).remove();
-    if (document.querySelector(".cart_items").children.length !== 0) {
-        basketCount--;
-        basketNum.textContent = `${basketCount}`;
-    } else {
-        document.querySelector(".products_in_cart").remove();
-        basketNum.textContent = `0`;
-    }
-}
-
-if (mainCatalogHtml != null) {
-    mainCatalogHtml.addEventListener('click', cart2.drawCart)
-}
-
-/*Пока заглушка, т.к. еще не умею передавать данные между станицами*/
-if (cartHtml != null) {
-    // for (const product of cart) {
-    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${dataBase[3].id}'>
-                        <img src='${dataBase[3].imgSrc}' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>${dataBase[3].price}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" value="${dataBase[3].quantity}">
-                            </label>
-                            <a href="#" class="close_prd" >
-                                <i class="far fa-window-close product-close"></i>
-                            </a>
-                        </div>
-                    </div>`)
-    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${dataBase[5].id}'>
-                        <img src='${dataBase[5].imgSrc}' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>${dataBase[5].price}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" value="${dataBase[5].quantity}">
-                            </label>
-                            <a href="#" class="close_prd" >
-                                <i class="far fa-window-close product-close"></i>
-                            </a>
-                        </div>
-                    </div>`)
-    cartHtml.insertAdjacentHTML('beforeend', `<div class="product_in_cart" id='prd_in_cart_${dataBase[7].id}'>
-                        <img src='${dataBase[7].imgSrc}' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>${dataBase[7].price}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" value="${dataBase[7].quantity}">
-                            </label>
-                            <div class="close_prd" id="rmv_${dataBase[7].id}">
-                                <i class="far fa-window-close product-close"></i>
-                            </div>
-                        </div>
-                    </div>`)
-    // }
-
-    cartHtml.addEventListener('click', function (e) {
-        if (e.target.id === `rmv_${catalog[1].id}`) {
-
-        }
-    })
-    totalPrice.textContent = `${dataBase[7].price}`
-}
-
-
-
 
