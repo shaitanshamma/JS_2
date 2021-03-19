@@ -1,15 +1,95 @@
 const API_URL = 'database/database.json';
 
+Vue.component('goods-list', {
+    props: ['goods'],
+    template: `
+    <div class="goods-list">
+      <good v-for="good in goods" :good="good" :key="good.id" v-if="good.popular" @addToCart="addToCart"></good>
+    </div>
+  `,
+    methods:{
+        addToCart(good){
+            console.log('из листа', good)
+            this.$emit('add-to-cart', good)
+        }
+    }
+});
+Vue.component('cart',{
+    props:['cart'],
+    template:`
+       <div class="products_in_cart">
+                <div class="cart_items">
+                    <div class="product_in_cart" id='prod.id' v-for="prod of cart">
+                        <img :src='prod.imgSrc' alt="" class="product_img">
+                        <div class="description">
+                            <h3>MANGO PEOPLE T-SHIRT</h3>
+                            <p class="product_decr">Price: <span>$ {{prod.price}}</span></p>
+                            <p class="product_decr">Color: Red</p>
+                            <p class="product_decr">Size: Xl</p>
+                            <label>
+                                <span class="product_decr">Quantity:</span>
+                                <input type="number" class="input_number" :value="prod.quant">
+                            </label>
+                            <a href="#" class="close_prd" >
+                                <i class="far fa-window-close product-close"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart_buttons">
+                    <div class="">
+                        <button class="cart_button clear" @click="$emit('clear')">Clear shopping cart</button>
+                    </div>
+                    <div class="">
+                        <button class="cart_button" @click="$emit('shopping')">Continue shopping</button>
+                    </div>
+                </div>
+            </div>
+    `,
+})
+Vue.component('good', {
+    props: ['good'],
+    template: `
+        <div class="good">
+            <div class="fature_item" :id="good.id">
+            <div class="overlay">
+                <a href="cart.html">
+                </a>
+                    <button class="add_to_card_block" :id="good.id" type="button" @click="$emit('addToCart', good)">
+                        <img src="img/cart.png" alt="">
+                        <span>Add to Cart</span>
+                    </button>
+            </div>
+            <a href="product.html">
+                <img :src="good.imgSrc" alt="" class="feature_img">
+                <h3>{{good.title}}</h3>
+                <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
+                    Ellery teams up with Moda Operandi.</p>
+                <p class="price">$ {{ good.price }}</p>
+            </a>
+        </div>
+        </div>
+    `,
+    methods: {
+        addToCart(good) {
+            this.$emit('add-to',good)
+        }
+    }
+});
+
+
 const vue = new Vue({
     el: "#container",
-    data: {
-        goods: [],
-        filtredGoods: [],
-        cart: [],
-        search_fld: '',
-        basketNum:document.getElementById("basket__count"),
-        isVisibleCart:false,
-        isVisibleCatalog:true,
+    data() {
+        return {
+            goods: [],
+            filtredGoods: [],
+            cart: [],
+            search_fld: '',
+            basketNum: document.getElementById("basket__count"),
+            isVisibleCart: false,
+            isVisibleCatalog: true,
+        }
     },
     methods: {
         searchHandler() {
@@ -49,6 +129,7 @@ const vue = new Vue({
             })
         },
         addToCart(good){
+            console.log(good, 'из родителя')
             let isInCart = false
             for (let i = 0; i < this.cart.length; i++) {
                 let key = this.cart[i].id
@@ -72,8 +153,12 @@ const vue = new Vue({
             console.log(this.isVisibleCart)
         },
         continueShopping(){
+            console.log('adada')
             this.isVisibleCart = false;
             this.isVisibleCatalog = true;
+        },
+        clearCart(){
+            this.cart=[]
         }
     },
     mounted() {
@@ -88,39 +173,9 @@ const vue = new Vue({
     }
 });
 //
-// Vue.component('good', {
-//     props: ['good'],
-//     template: `
-//         <div class="good">
-//             <div class="fature_item" :id="good.id">
-//             <div class="overlay">
-//                 <a href="cart.html">
-//                 </a>
-//                     <button class="add_to_card_block" :id="good.id" type="button">
-//                         <img src="img/cart.png" alt="">
-//                         <p>Add to Cart</p>
-//                     </button>
-//             </div>
-//             <a href="product.html">
-//                 <img :src="good.imgSrc" alt="" class="feature_img">
-//                 <h3>{{good.title}}</h3>
-//                 <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-//                     Ellery teams up with Moda Operandi.</p>
-//                 <p class="price">$ {{ good.price }}</p>
-//             </a>
-//         </div>
-//         </div>
-//     `
-// })
+
 //
-// Vue.component('goods-list', {
-//     props: ['goods'],
-//     template: `
-//     <div class="goods-list">
-//       <good v-for="good in goods" :good="good" :key="good.id"></good>
-//     </div>
-//   `
-// })
+
 const overlayMenuOpenButton = document.getElementById("open__overlay");
 
 const overlayStyle = document.getElementById("overlay_menu");
