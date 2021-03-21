@@ -7,16 +7,16 @@ Vue.component('goods-list', {
       <good v-for="good in goods" :good="good" :key="good.id" v-if="good.popular" @addToCart="addToCart"></good>
     </div>
   `,
-    methods:{
-        addToCart(good){
+    methods: {
+        addToCart(good) {
             console.log('из листа', good)
             this.$emit('add-to-cart', good)
         }
     }
 });
-Vue.component('cart',{
-    props:['cart'],
-    template:`
+Vue.component('cart', {
+    props: ['cart'],
+    template: `
        <div class="products_in_cart">
                 <div class="cart_items">
                     <div class="product_in_cart" id='prod.id' v-for="prod of cart">
@@ -30,9 +30,9 @@ Vue.component('cart',{
                                 <span class="product_decr">Quantity:</span>
                                 <input type="number" class="input_number" :value="prod.quant">
                             </label>
-                            <a href="#" class="close_prd" >
-                                <i class="far fa-window-close product-close"></i>
-                            </a>
+                            <button class="product-close" @click="$emit('remove', prod.id)" type="button">
+                                <i class="far fa-window-close"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -72,14 +72,33 @@ Vue.component('good', {
     `,
     methods: {
         addToCart(good) {
-            this.$emit('add-to',good)
+            this.$emit('add-to', good)
         }
     }
 });
-
+Vue.component('search', {
+    data() {
+        return {
+            search_fld:'',
+        }
+    },
+    template: `
+    <form class="search">
+       <label>
+          <input type="text" placeholder="Search" class="search_field" v-model="search_fld" v-on:input="searchHandler">
+       </label>
+       <button type="submit" class="search_btn">Search</button>
+    </form>
+    `,
+    methods:{
+        searchHandler() {
+            this.$emit('search', this.search_fld)
+        }
+    }
+})
 
 const vue = new Vue({
-    el: "#container",
+    el: "#app-container",
     data() {
         return {
             goods: [],
@@ -92,11 +111,11 @@ const vue = new Vue({
         }
     },
     methods: {
-        searchHandler() {
-            if (this.search_fld === '') {
+        searchHandler(str) {
+            if (str=== '') {
                 this.filtredGoods = this.goods;
             }
-            const regexp = new RegExp(this.search_fld, 'gi');
+            const regexp = new RegExp(str, 'gim');
             this.filtredGoods = this.goods.filter((good) => regexp.test(good.title));
         },
 
@@ -128,8 +147,7 @@ const vue = new Vue({
                 this.fetch(reject, resolve)
             })
         },
-        addToCart(good){
-            console.log(good, 'из родителя')
+        addToCart(good) {
             let isInCart = false
             for (let i = 0; i < this.cart.length; i++) {
                 let key = this.cart[i].id
@@ -144,21 +162,23 @@ const vue = new Vue({
             if (!isInCart) {
                 this.cart.push(good)
             }
-            this.basketNum.style.display ='block';
+            this.basketNum.style.display = 'block';
             this.basketNum.textContent = `${this.cart.length}`;
         },
-        showBasket(){
+        showBasket() {
             this.isVisibleCart = true;
             this.isVisibleCatalog = false;
             console.log(this.isVisibleCart)
         },
-        continueShopping(){
-            console.log('adada')
+        continueShopping() {
             this.isVisibleCart = false;
             this.isVisibleCatalog = true;
         },
-        clearCart(){
-            this.cart=[]
+        clearCart() {
+            this.cart = []
+        },
+        remove(id) {
+            this.cart = this.cart.filter(p => p.id !== id)
         }
     },
     mounted() {

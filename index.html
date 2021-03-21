@@ -20,7 +20,7 @@
     <title>Best Shop!</title>
 </head>
 <body>
-<div class="container" id="container">
+<div class="container" id="app-container">
     <header>
         <div class="nav__menu">
             <div class="nav_left">
@@ -30,12 +30,13 @@
                     <label for="search">
                         <img src="img/Forma%201.svg" alt="" class="img_header">
                     </label>
-                    <form class="search">
-                        <label>
-                            <input type="text" placeholder="Search" class="search_field" id="search_fld" v-model="search_fld" v-on:input="searchHandler">
-                        </label>
-                        <button type="submit" class="search_btn">Search</button>
-                    </form>
+                    <search @search="searchHandler"></search>
+<!--                    <form class="search">-->
+<!--                        <label>-->
+<!--                            <input type="text" placeholder="Search" class="search_field" id="search_fld" v-model="search_fld" v-on:input="searchHandler">-->
+<!--                        </label>-->
+<!--                        <button type="submit" class="search_btn">Search</button>-->
+<!--                    </form>-->
                 </div>
             </div>
             <div class="nav">
@@ -137,25 +138,6 @@
     </section>
     <section class="feature_content main" v-if="isVisibleCatalog">
         <goods-list :goods="filtredGoods" @add-to-cart="addToCart"></goods-list>
-<!--        <div class="good" v-for="good of goods" :key="good.id" v-if="good.popular">-->
-<!--            <div class="fature_item" :id="good.id">-->
-<!--                <div class="overlay">-->
-<!--                    <a href="cart.html">-->
-<!--                    </a>-->
-<!--                    <button class="add_to_card_block" :id="good.id" type="button" @click="addToCart(good)">-->
-<!--                        <img src="img/cart.png" alt="">-->
-<!--                        <p>Add to Cart</p>-->
-<!--                    </button>-->
-<!--                </div>-->
-<!--                <a href="product.html">-->
-<!--                    <img :src="good.imgSrc" alt="" class="feature_img">-->
-<!--                    <h3>{{good.title}}</h3>-->
-<!--                    <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym-->
-<!--                        Ellery teams up with Moda Operandi.</p>-->
-<!--                    <p class="price">$ {{ good.price }}</p>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="browse_all">
             <button class="button_browse" onclick="location.href='catalog.html'" title="Catalog">Browse All Product
             </button>
@@ -168,35 +150,7 @@
     </section>
     <section class="central_cart" v-if="isVisibleCart">
         <div class="wrapper">
-            <cart :cart="cart" @shopping="continueShopping" @clear="clearCart"></cart>
-<!--            <div class="products_in_cart">-->
-<!--                <div class="cart_items">-->
-<!--                    <div class="product_in_cart" id='prd_in_cart_${item.id}' v-for="prod of cart">-->
-<!--                        <img :src='prod.imgSrc' alt="" class="product_img">-->
-<!--                        <div class="description">-->
-<!--                            <h3>MANGO PEOPLE T-SHIRT</h3>-->
-<!--                            <p class="product_decr">Price: <span>$ {{prod.price}}</span></p>-->
-<!--                            <p class="product_decr">Color: Red</p>-->
-<!--                            <p class="product_decr">Size: Xl</p>-->
-<!--                            <label>-->
-<!--                                <span class="product_decr">Quantity:</span>-->
-<!--                                <input type="number" class="input_number" :value="prod.quant">-->
-<!--                            </label>-->
-<!--                            <a href="#" class="close_prd" >-->
-<!--                                <i class="far fa-window-close product-close"></i>-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="cart_buttons">-->
-<!--                    <div class="">-->
-<!--                        <button class="cart_button clear">Clear shopping cart</button>-->
-<!--                    </div>-->
-<!--                    <div class="">-->
-<!--                        <button class="cart_button" @click="continueShopping">Continue shopping</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <cart :cart="cart" @shopping="continueShopping" @clear="clearCart" @remove="remove"></cart>
             <div class="order_and_price">
                 <div class="order_form">
                     <form id="submit_form">
@@ -204,9 +158,6 @@
                         <label>
                             <input type="text" placeholder="Name" id="name">
                         </label>
-                        <!--                        <label>-->
-                        <!--                            <input type="text" placeholder="State" id="state">-->
-                        <!--                        </label>-->
                         <label>
                             <input type="text" placeholder="Email" id="email">
                         </label>
