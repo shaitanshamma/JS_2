@@ -116,7 +116,7 @@ const vue = new Vue({
                 this.filtredGoods = this.goods;
             }
             const regexp = new RegExp(str, 'gim');
-            this.filtredGoods = this.goods.filter((good) => regexp.test(good.title));
+            this.filtredGoods = this.goods.filter((good) => good.title.match(regexp));
         },
 
         fetch(error, success) {
