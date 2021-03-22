@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="afa1223e-89c0-462d-9425-4a3694f67085" name="Default Changelist" comment="refactor">
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/catalog/feature_9.png" afterDir="false" />
+    <list default="true" id="afa1223e-89c0-462d-9425-4a3694f67085" name="Default Changelist" comment="lesson_4 task - add clear cart functions">
+      <change afterPath="$PROJECT_DIR$/.idea/JS_2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catalog.html" beforeDir="false" afterPath="$PROJECT_DIR$/catalog.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
@@ -29,10 +38,17 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,7 +61,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/img/catalog" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -55,6 +74,20 @@
       <recent name="D:\JS_projects\JS_2\img\catalog" />
       <recent name="D:\JS_projects\JS_2" />
     </key>
+  </component>
+  <component name="RunManager" selected="Node.js.reggexp.js">
+    <configuration name="hamburger.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/hamburger.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="reggexp.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/reggexp.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.reggexp.js" />
+        <item itemvalue="Node.js.hamburger.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -67,7 +100,29 @@
       <workItem from="1614498965918" duration="7520000" />
       <workItem from="1614526680723" duration="9130000" />
       <workItem from="1614657538838" duration="271000" />
-      <workItem from="1614701921056" duration="2356000" />
+      <workItem from="1614701921056" duration="3355000" />
+      <workItem from="1614834922957" duration="3872000" />
+      <workItem from="1614858677880" duration="1570000" />
+      <workItem from="1614875431222" duration="3725000" />
+      <workItem from="1614959127748" duration="5759000" />
+      <workItem from="1615046909964" duration="5066000" />
+      <workItem from="1615093422364" duration="1305000" />
+      <workItem from="1615101351184" duration="222000" />
+      <workItem from="1615221686805" duration="4998000" />
+      <workItem from="1615263102823" duration="379000" />
+      <workItem from="1615304556773" duration="7309000" />
+      <workItem from="1615347606595" duration="163000" />
+      <workItem from="1615373748734" duration="13985000" />
+      <workItem from="1615394972389" duration="4787000" />
+      <workItem from="1615437877264" duration="12415000" />
+      <workItem from="1615492435770" duration="2688000" />
+      <workItem from="1615560228906" duration="9671000" />
+      <workItem from="1615614604027" duration="17289000" />
+      <workItem from="1615648177583" duration="2562000" />
+      <workItem from="1615700909909" duration="3632000" />
+      <workItem from="1615738534619" duration="30000" />
+      <workItem from="1615827400156" duration="1496000" />
+      <workItem from="1615910462762" duration="10692000" />
     </task>
     <task id="LOCAL-00001" summary="Initial">
       <created>1614499294265</created>
@@ -83,18 +138,141 @@
       <option name="project" value="LOCAL" />
       <updated>1614500267630</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add listener, add js generated catalog and popular.&#10;refactor basket count at main page.">
+      <created>1614704668132</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1614704668132</updated>
+    </task>
+    <task id="LOCAL-00004" summary="lesson_2 task.">
+      <created>1614870433161</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1614870433161</updated>
+    </task>
+    <task id="LOCAL-00005" summary="lesson_2 task.">
+      <created>1614877547824</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1614877547824</updated>
+    </task>
+    <task id="LOCAL-00006" summary="lesson_2 task refactor">
+      <created>1614882768858</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1614882768858</updated>
+    </task>
+    <task id="LOCAL-00007" summary="lesson_2 task. add service class">
+      <created>1615052199467</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615052199467</updated>
+    </task>
+    <task id="LOCAL-00008" summary="lesson_3 task">
+      <created>1615312712582</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615312712582</updated>
+    </task>
+    <task id="LOCAL-00009" summary="lesson_3 task - add Promise">
+      <created>1615390415205</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1615390415205</updated>
+    </task>
+    <task id="LOCAL-00010" summary="lesson_3 task - add Promise 2">
+      <created>1615399157782</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1615399157782</updated>
+    </task>
+    <task id="LOCAL-00011" summary="lesson_3 task - add cart draw with localstorage">
+      <created>1615446660763</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1615446660763</updated>
+    </task>
+    <task id="LOCAL-00012" summary="lesson_3 task - add cart draw with localstorage 2">
+      <created>1615449827226</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1615449827226</updated>
+    </task>
+    <task id="LOCAL-00013" summary="lesson_4 task - refactor Promise">
+      <created>1615495137958</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615495137958</updated>
+    </task>
+    <task id="LOCAL-00014" summary="lesson_4 task - add regexp">
+      <created>1615635655910</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1615635655910</updated>
+    </task>
+    <task id="LOCAL-00015" summary="lesson_4 task - add clear cart functions">
+      <created>1615704491159</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1615704491159</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="add listener, add js generated catalog and popular.&#10;refactor basket count at main page." />
+    <MESSAGE value="lesson_2 task." />
+    <MESSAGE value="lesson_2 task refactor" />
+    <MESSAGE value="lesson_2 task. add service class" />
+    <MESSAGE value="lesson_3 task" />
+    <MESSAGE value="lesson_3 task - add Promise" />
+    <MESSAGE value="lesson_3 task - add Promise 2" />
+    <MESSAGE value="lesson_3 task - add cart draw with localstorage" />
+    <MESSAGE value="lesson_3 task - add cart draw with localstorage 2" />
+    <MESSAGE value="lesson_4 task - refactor Promise" />
+    <MESSAGE value="lesson_4 task - add regexp" />
+    <MESSAGE value="lesson_4 task - add clear cart functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="lesson_4 task - add clear cart functions" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1085" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1614877219256">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="1085" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1040@0.0.2560.1040" timestamp="1614877219256" />
+    <state x="92" y="92" width="2376" height="856" key="DiffContextDialog" timestamp="1615396567937">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="92" y="92" width="2376" height="856" key="DiffContextDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1615396567937" />
     <state x="1158" y="418" key="Github.ShareDialog" timestamp="1614499013961">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
@@ -103,17 +281,81 @@
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="1147" y="225" key="Github.UntrackedFilesDialog/0.0.2560.1040@0.0.2560.1040" timestamp="1614499019351" />
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1614500273870">
+    <state width="2517" height="216" key="GridCell.Tab.0.bottom" timestamp="1615576052430">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1614500273870" />
+    <state width="2517" height="216" key="GridCell.Tab.0.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1615576052430" />
+    <state width="2517" height="216" key="GridCell.Tab.0.center" timestamp="1615576052430">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="216" key="GridCell.Tab.0.center/0.0.2560.1040@0.0.2560.1040" timestamp="1615576052430" />
+    <state width="2517" height="216" key="GridCell.Tab.0.left" timestamp="1615576052430">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="216" key="GridCell.Tab.0.left/0.0.2560.1040@0.0.2560.1040" timestamp="1615576052430" />
+    <state width="2517" height="216" key="GridCell.Tab.0.right" timestamp="1615576052430">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="216" key="GridCell.Tab.0.right/0.0.2560.1040@0.0.2560.1040" timestamp="1615576052430" />
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.1.center" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.center/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.1.left" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.left/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.1.right" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.1.right/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.2.bottom" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.2.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.2.center" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.2.center/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.2.left" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.2.left/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.2.right" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.2.right/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.3.bottom" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.3.bottom/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.3.center" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.3.center/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.3.left" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.3.left/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state width="2517" height="348" key="GridCell.Tab.3.right" timestamp="1615312719412">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state width="2517" height="348" key="GridCell.Tab.3.right/0.0.2560.1040@0.0.2560.1040" timestamp="1615312719412" />
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2" timestamp="1615738554046">
+      <screen x="0" y="0" width="2560" height="1040" />
+    </state>
+    <state x="872" y="253" key="Vcs.Push.Dialog.v2/0.0.2560.1040@0.0.2560.1040" timestamp="1615738554046" />
     <state x="936" y="240" key="run.anything.popup" timestamp="1614702693823">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
     <state x="936" y="240" key="run.anything.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1614702693823" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614702721735">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615626707256">
       <screen x="0" y="0" width="2560" height="1040" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1614702721735" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.2560.1040@0.0.2560.1040" timestamp="1615626707256" />
   </component>
 </project>

@@ -20,7 +20,7 @@
     <title>Best Shop!</title>
 </head>
 <body>
-<div class="container">
+<div class="container" id="app-container">
     <header>
         <div class="nav__menu">
             <div class="nav_left">
@@ -30,12 +30,13 @@
                     <label for="search">
                         <img src="img/Forma%201.svg" alt="" class="img_header">
                     </label>
-                    <form class="search">
-                        <label>
-                            <input type="text" placeholder="Search" class="search_field">
-                        </label>
-                        <button type="submit" class="search_btn">Search</button>
-                    </form>
+                    <search @search="searchHandler"></search>
+<!--                    <form class="search">-->
+<!--                        <label>-->
+<!--                            <input type="text" placeholder="Search" class="search_field" id="search_fld" v-model="search_fld" v-on:input="searchHandler">-->
+<!--                        </label>-->
+<!--                        <button type="submit" class="search_btn">Search</button>-->
+<!--                    </form>-->
                 </div>
             </div>
             <div class="nav">
@@ -44,9 +45,9 @@
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="nav_button"><a href="#"><img src="img/Forma_2.png" alt="" class="img_header"></a></div>
-                    <div class="nav_button basket"><a href="cart.html"><img src="img/Forma_3.png" alt=""
-                                                                            class="img_header"></a>
-                        <p class="basket__count" id="basket__count"></p>
+                    <div class="nav_button basket" @click="showBasket"><img src="img/Forma_3.png" alt=""
+                                                                            class="img_header">
+                        <p class="basket__count" id="basket__count" v-if="cart.length!==0">{{cart.length}}</p>
                     </div>
                 </div>
             </div>
@@ -85,7 +86,7 @@
             </div>
         </div>
     </header>
-    <section class="top_content">
+    <section class="top_content" v-if="isVisibleCatalog">
         <div class="fashion">
             <div class="left">
                 <img src="img/Layer57.png" alt="" class="left_img">
@@ -99,7 +100,7 @@
             </div>
         </div>
     </section>
-    <section class="content_1">
+    <section class="content_1" v-if="isVisibleCatalog">
         <div class="wrapper">
 <!--            <a class="w-100" href="#">-->
 
@@ -131,14 +132,51 @@
             </div>
         </div>
     </section>
-    <section class="feature">
+    <section class="feature" v-if="isVisibleCatalog">
         <h2>Fetured Items</h2>
         <p>Shop for items based on what we featured in this week</p>
     </section>
-    <section class="feature_content main">
+    <section class="feature_content main" v-if="isVisibleCatalog">
+        <goods-list :goods="filtredGoods" @add-to-cart="addToCart"></goods-list>
         <div class="browse_all">
             <button class="button_browse" onclick="location.href='catalog.html'" title="Catalog">Browse All Product
             </button>
+        </div>
+    </section>
+    <section class="cart_top" v-if="isVisibleCart">
+        <div class="wrapper">
+            <h2>SHOPPING CART</h2>
+        </div>
+    </section>
+    <section class="central_cart" v-if="isVisibleCart">
+        <div class="wrapper">
+            <cart :cart="cart" @shopping="continueShopping" @clear="clearCart" @remove="remove"></cart>
+            <div class="order_and_price">
+                <div class="order_form">
+                    <form id="submit_form">
+                        <h4>SHIPPING ADDRESS</h4>
+                        <label>
+                            <input type="text" placeholder="Name" id="name">
+                        </label>
+                        <label>
+                            <input type="text" placeholder="Email" id="email">
+                        </label>
+                        <label>
+                            <input type="text" placeholder="Phone" id="phone">
+                        </label>
+                        <div class="">
+                            <button class="get_quote" type="submit">GET A QUOTE</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="total_price">
+                    <h5>SUB TOTAL $900</h5>
+                    <h4>GRAND TOTAL <span>$900</span></h4>
+                    <div class="proceed_button">
+                        <button class="proceed">PROCEED TO CHECKOUT</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <section class="sale_and_delivery">
@@ -192,6 +230,8 @@
         </div>
     </footer>
 </div>
-<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!--<script src="app.js"></script>-->
+<script src="main.js"></script>
 </body>
 </html>
