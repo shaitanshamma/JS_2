@@ -79,7 +79,7 @@ Vue.component('good', {
 Vue.component('search', {
     data() {
         return {
-            search_fld:'',
+            search_fld: '',
         }
     },
     template: `
@@ -90,7 +90,7 @@ Vue.component('search', {
        <button type="submit" class="search_btn">Search</button>
     </form>
     `,
-    methods:{
+    methods: {
         searchHandler() {
             this.$emit('search', this.search_fld)
         }
@@ -98,100 +98,110 @@ Vue.component('search', {
 })
 
 const vue = new Vue({
-    el: "#app-container",
-    data() {
-        return {
-            goods: [],
-            filtredGoods: [],
-            cart: [],
-            search_fld: '',
-            basketNum: document.getElementById("basket__count"),
-            isVisibleCart: false,
-            isVisibleCatalog: true,
-        }
-    },
-    methods: {
-        searchHandler(str) {
-            if (str=== '') {
-                this.filtredGoods = this.goods;
+        el: "#app-container",
+        data() {
+            return {
+                goods: [],
+                filtredGoods: [],
+                cart: [],
+                search_fld: '',
+                basketNum: document.getElementById("basket__count"),
+                isVisibleCart: false,
+                isVisibleCatalog: true,
             }
-            const regexp = new RegExp(str, 'gim');
-            this.filtredGoods = this.goods.filter((good) => good.title.match(regexp));
         },
-
-        fetch(error, success) {
-            let xhr;
-
-            if (window.XMLHttpRequest) {
-                xhr = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        success(JSON.parse(xhr.responseText));
-                    } else if (xhr.status > 400) {
-                        error('все пропало');
+        methods: {
+            searchHandler(str) {
+                if (str === '') {
+                    this.filtredGoods = this.goods;
+                }
+                const regexp = new RegExp(str, 'gim');
+                this.filtredGoods = this.goods.filter((good) => good.title.match(regexp));
+            },
+            addToCart(good) {
+                let isInCart = false
+                if (this.cart.length === 0) {
+                    this.cart.push(good)
+                } else {
+                    for (let i = 0; i < this.cart.length; i++) {
+                        let key = this.cart[i].id
+                        console.log(key, 'key')
+                        console.log(this.cart[i].id, 'id')
+                        if (key === good.id) {
+                            good.quant += 1
+                            console.log(good, 'good')
+                            isInCart = true
+                        }
+                    }
+                    if (!isInCart) {
+                        this.cart.push(good);
                     }
                 }
+                this.basketNum.style.display = 'block';
+                this.basketNum.textContent = `${this.cart.length}`;
+                console.log(JSON.stringify(this.cart), 'string')
+
+                fetch(`http://localhost:3000/cart`, {
+                    method: 'POST',
+                    body: JSON.stringify(this.cart),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((result) => {
+                    console.log(result)
+                })
+            },
+
+
+
+            showBasket() {
+                this.isVisibleCart = true;
+                this.isVisibleCatalog = false;
+                console.log(this.isVisibleCart)
             }
-
-            xhr.open('GET', API_URL, true);
-            xhr.send();
+            ,
+            continueShopping() {
+                this.isVisibleCart = false;
+                this.isVisibleCatalog = true;
+            }
+            ,
+            clearCart() {
+                this.cart = []
+            }
+            ,
+            remove(id) {
+                this.cart = this.cart.filter(p => p.id !== id)
+            }
         },
-
-        fetchPromise() {
-            return new Promise((resolve, reject) => {
-                this.fetch(reject, resolve)
+        mounted() {
+            fetch(`http://localhost:3000/catalog`, {
+                method: 'GET',
+                mode: 'no-cors'
             })
-        },
-        addToCart(good) {
-            let isInCart = false
-            for (let i = 0; i < this.cart.length; i++) {
-                let key = this.cart[i].id
-                console.log(key, 'key')
-                console.log(good.id, 'id')
-                if (key === good.id) {
-                    good.quant += 1
-                    console.log(good)
-                    isInCart = true
-                }
-            }
-            if (!isInCart) {
-                this.cart.push(good)
-            }
-            this.basketNum.style.display = 'block';
-            this.basketNum.textContent = `${this.cart.length}`;
-        },
-        showBasket() {
-            this.isVisibleCart = true;
-            this.isVisibleCatalog = false;
-            console.log(this.isVisibleCart)
-        },
-        continueShopping() {
-            this.isVisibleCart = false;
-            this.isVisibleCatalog = true;
-        },
-        clearCart() {
-            this.cart = []
-        },
-        remove(id) {
-            this.cart = this.cart.filter(p => p.id !== id)
+                .then((res) => {
+                    return res.text();
+                })
+                .then((data) => {
+                        this.goods = JSON.parse(data)
+                        this.filtredGoods = this.goods
+                    }
+                );
+            // ,
+            fetch(`http://localhost:3000/cart`, {
+                method: 'GET',
+                mode: 'no-cors'
+            })
+                .then((res) => {
+                    return res.text();
+                })
+                .then((data) => {
+                        this.cart = JSON.parse(data)
+                    }
+                )
         }
-    },
-    mounted() {
-        this.fetchPromise()
-            .then(data => {
-                this.goods = data;
-                this.filtredGoods = data;
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-});
+        ,
+    })
+;
 //
 
 //
