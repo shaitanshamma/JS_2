@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const moment = require('moment')
 
 const app = express();
 
@@ -38,3 +39,15 @@ app.post('/cart', (req, res) => {
     });
 });
 
+app.post('/log', (req, res) => {
+    fs.readFile('database/log.json', 'utf8', (err, data) => {
+        const log = JSON.parse(data);
+        const log_item = req.body;
+        log_item.time=moment().format('MMMM Do YYYY, h:mm:ss a')
+        log.push(log_item);
+        fs.writeFile('database/log.json', JSON.stringify(log), (err) => {
+            console.log('done');
+            res.send('ok')
+        });
+    });
+});

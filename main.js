@@ -1,5 +1,6 @@
 const API_URL = 'database/database.json';
 
+
 Vue.component('goods-list', {
     props: ['goods'],
     template: `
@@ -111,12 +112,27 @@ const vue = new Vue({
             }
         },
         methods: {
+
+            logger(evt){
+                let log = {event: evt }
+                fetch(`http://localhost:3000/log`, {
+                    method: 'POST',
+                    body: JSON.stringify(log),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then((result) => {
+                    console.log(result)
+                })
+            },
+
             searchHandler(str) {
                 if (str === '') {
                     this.filtredGoods = this.goods;
                 }
                 const regexp = new RegExp(str, 'gim');
                 this.filtredGoods = this.goods.filter((good) => good.title.match(regexp));
+                this.logger('filter')
             },
             addToCart(good) {
                 let isInCart = false
@@ -149,6 +165,7 @@ const vue = new Vue({
                     }
                 }).then((result) => {
                     console.log(result)
+                    this.logger('add to cart')
                 })
             },
 
@@ -158,19 +175,24 @@ const vue = new Vue({
                 this.isVisibleCart = true;
                 this.isVisibleCatalog = false;
                 console.log(this.isVisibleCart)
+                this.logger('open cart')
             }
             ,
             continueShopping() {
                 this.isVisibleCart = false;
                 this.isVisibleCatalog = true;
+                this.logger('open main page')
+                this.logger('open main page')
             }
             ,
             clearCart() {
                 this.cart = []
+                this.logger('clear cart')
             }
             ,
             remove(id) {
                 this.cart = this.cart.filter(p => p.id !== id)
+                this.logger(`remove item from cart with id=${id}`)
             }
         },
         mounted() {
@@ -185,21 +207,33 @@ const vue = new Vue({
                         this.goods = JSON.parse(data)
                         this.filtredGoods = this.goods
                     }
-                );
-            // ,
-            fetch(`http://localhost:3000/cart`, {
-                method: 'GET',
-                mode: 'no-cors'
-            })
-                .then((res) => {
-                    return res.text();
-                })
-                .then((data) => {
-                        this.cart = JSON.parse(data)
-                    }
                 )
-        }
-        ,
+            // ,
+            function getCart() {
+                fetch(`http://localhost:3000/cart`, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                })
+                    .then((res) => {
+                        return res.text();
+                    })
+                    .then((data) => {
+                            this.cart = JSON.parse(data)
+                        }
+                    )
+            };
+            // fetch(`http://localhost:3000/cart`, {
+            //     method: 'GET',
+            //     mode: 'no-cors'
+            // })
+            //     .then((res) => {
+            //         return res.text();
+            //     })
+            //     .then((data) => {
+            //             this.cart = JSON.parse(data)
+            //         }
+            //     )
+        },
     })
 ;
 //

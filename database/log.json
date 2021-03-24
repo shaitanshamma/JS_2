@@ -1,0 +1,48 @@
+[
+  {
+    "event": "add to cart"
+  },
+  {
+    "event": "add to cart"
+  },
+  {
+    "event": "add to cart",
+    "time": "March 24th 2021, 7:30:31 pm"
+  },
+  {
+    "event": "add to cart",
+    "time": "March 24th 2021, 7:30:33 pm"
+  },
+  {
+    "event": "open cart",
+    "time": "March 24th 2021, 7:33:42 pm"
+  },
+  {
+    "event": "open main page",
+    "time": "March 24th 2021, 7:33:45 pm"
+  },
+  {
+    "event": "open main page",
+    "time": "March 24th 2021, 7:33:45 pm"
+  },
+  {
+    "event": "add to cart",
+    "time": "March 24th 2021, 7:33:49 pm"
+  },
+  {
+    "event": "open cart",
+    "time": "March 24th 2021, 7:33:51 pm"
+  },
+  {
+    "event": "remove item from cart with 1",
+    "time": "March 24th 2021, 7:33:53 pm"
+  },
+  {
+    "event": "open main page",
+    "time": "March 24th 2021, 7:33:56 pm"
+  },
+  {
+    "event": "open main page",
+    "time": "March 24th 2021, 7:33:56 pm"
+  }
+]
