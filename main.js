@@ -113,8 +113,8 @@ const vue = new Vue({
         },
         methods: {
 
-            logger(evt){
-                let log = {event: evt }
+            logger(evt) {
+                let log = {event: evt}
                 fetch(`http://localhost:3000/log`, {
                     method: 'POST',
                     body: JSON.stringify(log),
@@ -159,7 +159,7 @@ const vue = new Vue({
 
                 fetch(`http://localhost:3000/cart`, {
                     method: 'POST',
-                    body: JSON.stringify(this.cart),
+                    body: JSON.stringify(good),
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -170,19 +170,41 @@ const vue = new Vue({
             },
 
 
-
             showBasket() {
                 this.isVisibleCart = true;
                 this.isVisibleCatalog = false;
                 console.log(this.isVisibleCart)
                 this.logger('open cart')
+                fetch(`http://localhost:3000/cart`, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                })
+                    .then((res) => {
+                        return res.text();
+                    })
+                    .then((data) => {
+                            this.cart = JSON.parse(data)
+                        }
+                    )
             }
             ,
             continueShopping() {
                 this.isVisibleCart = false;
                 this.isVisibleCatalog = true;
                 this.logger('open main page')
-                this.logger('open main page')
+                // fetch(`http://localhost:3000/cart`, {
+                //     method: 'GET',
+                //     mode: 'no-cors'
+                // })
+                //     .then((res) => {
+                //         return res.text();
+                //     })
+                //     .then((data) => {
+                //             this.cart = JSON.parse(data)
+                //             this.basketNum.style.display = 'block';
+                //             this.basketNum.textContent = `${this.cart.length}`;
+                //         }
+                //     )
             }
             ,
             clearCart() {
@@ -192,7 +214,12 @@ const vue = new Vue({
             ,
             remove(id) {
                 this.cart = this.cart.filter(p => p.id !== id)
-                this.logger(`remove item from cart with id=${id}`)
+                fetch(`http://localhost:3000/cart/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then((res) => {
+                        this.logger(`remove item from cart with id=${id}`)
+                    })
             }
         },
         mounted() {
@@ -207,21 +234,22 @@ const vue = new Vue({
                         this.goods = JSON.parse(data)
                         this.filtredGoods = this.goods
                     }
-                )
+                );
             // ,
-            function getCart() {
-                fetch(`http://localhost:3000/cart`, {
-                    method: 'GET',
-                    mode: 'no-cors'
+            fetch(`http://localhost:3000/cart`, {
+                method: 'GET',
+                mode: 'no-cors'
+            })
+                .then((res) => {
+                    return res.text();
                 })
-                    .then((res) => {
-                        return res.text();
-                    })
-                    .then((data) => {
-                            this.cart = JSON.parse(data)
-                        }
-                    )
-            };
+                .then((data) => {
+                        this.cart = JSON.parse(data)
+                        this.basketNum.style.display = 'block';
+                        this.basketNum.textContent = `${this.cart.length}`;
+                    }
+                )
+
             // fetch(`http://localhost:3000/cart`, {
             //     method: 'GET',
             //     mode: 'no-cors'
