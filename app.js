@@ -129,7 +129,7 @@ class MainCatalog extends DrawHtmlItems {
         mainCatalogHtml.insertAdjacentHTML("afterbegin", `        
         <div class="fature_item" id="product_${product.id}">
             <div class="overlay">
-                <a href="cart.html">
+                <a href="old_html/cart.html">
                 </a>
                     <button class="add_to_card_block" id="add_to_cart_${product.id}" type="button">
                         <img src="img/cart.png" alt="">
@@ -177,7 +177,7 @@ class Catalog extends DrawHtmlItems {
         catalogHtml.insertAdjacentHTML("afterbegin", `
         <div class="fature_item" id="product_${product.id}">
             <div class="overlay">
-                <a href="cart.html">
+                <a href="old_html/cart.html">
                 </a>
                     <button class="add_to_card_block" id="add_to_cart_${product.id}" type="button">
                         <img src="img/cart.png" alt="">

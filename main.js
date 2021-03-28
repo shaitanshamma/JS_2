@@ -1,104 +1,12 @@
 const API_URL = 'database/database.json';
-
-
-Vue.component('goods-list', {
-    props: ['goods'],
-    template: `
-    <div class="goods-list">
-      <good v-for="good in goods" :good="good" :key="good.id" v-if="good.popular" @addToCart="addToCart"></good>
-    </div>
-  `,
-    methods: {
-        addToCart(good) {
-            console.log('из листа', good)
-            this.$emit('add-to-cart', good)
-        }
-    }
-});
-Vue.component('cart', {
-    props: ['cart'],
-    template: `
-       <div class="products_in_cart">
-                <div class="cart_items">
-                    <div class="product_in_cart" id='prod.id' v-for="prod of cart">
-                        <img :src='prod.imgSrc' alt="" class="product_img">
-                        <div class="description">
-                            <h3>MANGO PEOPLE T-SHIRT</h3>
-                            <p class="product_decr">Price: <span>$ {{prod.price}}</span></p>
-                            <p class="product_decr">Color: Red</p>
-                            <p class="product_decr">Size: Xl</p>
-                            <label>
-                                <span class="product_decr">Quantity:</span>
-                                <input type="number" class="input_number" :value="prod.quant">
-                            </label>
-                            <button class="product-close" @click="$emit('remove', prod.id)" type="button">
-                                <i class="far fa-window-close"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart_buttons">
-                    <div class="">
-                        <button class="cart_button clear" @click="$emit('clear')">Clear shopping cart</button>
-                    </div>
-                    <div class="">
-                        <button class="cart_button" @click="$emit('shopping')">Continue shopping</button>
-                    </div>
-                </div>
-            </div>
-    `,
-})
-Vue.component('good', {
-    props: ['good'],
-    template: `
-        <div class="good">
-            <div class="fature_item" :id="good.id">
-            <div class="overlay">
-                <a href="cart.html">
-                </a>
-                    <button class="add_to_card_block" :id="good.id" type="button" @click="$emit('addToCart', good)">
-                        <img src="img/cart.png" alt="">
-                        <span>Add to Cart</span>
-                    </button>
-            </div>
-            <a href="product.html">
-                <img :src="good.imgSrc" alt="" class="feature_img">
-                <h3>{{good.title}}</h3>
-                <p class="pgf">Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym
-                    Ellery teams up with Moda Operandi.</p>
-                <p class="price">$ {{ good.price }}</p>
-            </a>
-        </div>
-        </div>
-    `,
-    methods: {
-        addToCart(good) {
-            this.$emit('add-to', good)
-        }
-    }
-});
-Vue.component('search', {
-    data() {
-        return {
-            search_fld: '',
-        }
-    },
-    template: `
-    <form class="search">
-       <label>
-          <input type="text" placeholder="Search" class="search_field" v-model="search_fld" v-on:input="searchHandler">
-       </label>
-       <button type="submit" class="search_btn">Search</button>
-    </form>
-    `,
-    methods: {
-        searchHandler() {
-            this.$emit('search', this.search_fld)
-        }
-    }
-})
+import {Goods} from "./public/goods.js";
+import {Cart} from "./public/cart.js";
+import {Search} from "./public/search.js";
 
 const vue = new Vue({
+        components: {
+            Goods, Cart, Search
+        },
         el: "#app-container",
         data() {
             return {
@@ -192,19 +100,6 @@ const vue = new Vue({
                 this.isVisibleCart = false;
                 this.isVisibleCatalog = true;
                 this.logger('open main page')
-                // fetch(`http://localhost:3000/cart`, {
-                //     method: 'GET',
-                //     mode: 'no-cors'
-                // })
-                //     .then((res) => {
-                //         return res.text();
-                //     })
-                //     .then((data) => {
-                //             this.cart = JSON.parse(data)
-                //             this.basketNum.style.display = 'block';
-                //             this.basketNum.textContent = `${this.cart.length}`;
-                //         }
-                //     )
             }
             ,
             clearCart() {
@@ -249,18 +144,6 @@ const vue = new Vue({
                         this.basketNum.textContent = `${this.cart.length}`;
                     }
                 )
-
-            // fetch(`http://localhost:3000/cart`, {
-            //     method: 'GET',
-            //     mode: 'no-cors'
-            // })
-            //     .then((res) => {
-            //         return res.text();
-            //     })
-            //     .then((data) => {
-            //             this.cart = JSON.parse(data)
-            //         }
-            //     )
         },
     })
 ;
