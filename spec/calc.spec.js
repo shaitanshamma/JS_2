@@ -24,6 +24,12 @@ describe('Функция mult', ()=>{
     it('should Nan при аргументах 5 и null', function () {
         expect(mult(5,null)).toBe(0)
     });
+    it('should Error при аргументах 5 и string', function () {
+        expect(mult(5,'sdsd')).toBe("строки не умножаем")
+    });
+    it('should Nan при аргументах 5 и undefined', function () {
+        expect(mult(5,undefined)).toBe(NaN)
+    });
 })
 
 describe('Функция sep', ()=>{
