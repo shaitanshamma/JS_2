@@ -31,12 +31,6 @@
                         <img src="img/Forma%201.svg" alt="" class="img_header">
                     </label>
                     <search @search="searchHandler"></search>
-<!--                    <form class="search">-->
-<!--                        <label>-->
-<!--                            <input type="text" placeholder="Search" class="search_field" id="search_fld" v-model="search_fld" v-on:input="searchHandler">-->
-<!--                        </label>-->
-<!--                        <button type="submit" class="search_btn">Search</button>-->
-<!--                    </form>-->
                 </div>
             </div>
             <div class="nav">
@@ -137,9 +131,9 @@
         <p>Shop for items based on what we featured in this week</p>
     </section>
     <section class="feature_content main" v-if="isVisibleCatalog">
-        <goods-list :goods="filtredGoods" @add-to-cart="addToCart"></goods-list>
+        <goods :goods="filtredGoods" @add-to-cart="addToCart"></goods>
         <div class="browse_all">
-            <button class="button_browse" onclick="location.href='catalog.html'" title="Catalog">Browse All Product
+            <button class="button_browse" onclick="location.href='./catalog.html'" title="Catalog">Browse All Product
             </button>
         </div>
     </section>
@@ -232,6 +226,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <!--<script src="app.js"></script>-->
-<script src="main.js"></script>
+<script src="main.js" type="module"></script>
 </body>
 </html>
